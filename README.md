@@ -24,7 +24,7 @@ CHALLENGES:
   - Modal to fade away after selection of the city  
 
 
-(http://i.imgur.com/LA6pTMx.png)
+![wireframe](http://i.imgur.com/LA6pTMx.png)
 
 
 #2. A user selects a city and will be able to see information on the main page related to the selected city and its main landmarks.
@@ -43,7 +43,7 @@ CHALLENGES:
           ..Why is it fun?
 
 
-(http://i.imgur.com/wD5u0oq.png)
+![wireframe](http://i.imgur.com/wD5u0oq.png)
 
 
 #3. User will be able to add a new city or edit a city content in the collection.
@@ -52,7 +52,7 @@ CHALLENGES:
       .If adding new city, information will show right after it is completed
       .If editing a city, information will be updated after submitting
 
-(http://i.imgur.com/9EI6JQZ.png)      
+![wireframe](http://i.imgur.com/9EI6JQZ.png)      
 
 #4. A user will be able to create, edit and delete a landmark on the city selected.
   - Create a modal box to show an input form asking for landmark information like the one displayed on PArt 2 of User Stories.
@@ -61,7 +61,7 @@ CHALLENGES:
       .If editing a landmark, information will be updated after submitting
       .If deleting, the landmark with be removed from screen
 
-(http://i.imgur.com/6i9rFMA.png)
+![wireframe](http://i.imgur.com/6i9rFMA.png)
 
 5. Each city will have a picture to show up a skyline of it as well as the landmark.
   - Pictures will be asked to be no less than 900 x 900 pixels for the city and 600 x 600 of a landmark
