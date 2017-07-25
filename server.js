@@ -1,23 +1,21 @@
 //REQUIRE EXPRESS
 const express = require('express'),
-      app = express();
+      app = express(),
+      bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const controllers = require('./controllers');
 
-const db = require('./models');
+
 
 
 //BASIC ROUTE
 
-//app.get('/', function homepage (req,res){
-//  res.send('Hello World');
-//});
-
 //Index page
 app.get('/', function home(req,res) {
-  res.sendFile(__dirname + 'views/index.html');
+  res.sendFile('views/index.html' , { root : __dirname});
 })
 
 /*
@@ -25,7 +23,7 @@ app.get('/', function home(req,res) {
  */
 
 app.get('/api', controllers.api.index);
-
+app.get('/api/cities', controllers.cities.index);
 
 
 //LISTENING
