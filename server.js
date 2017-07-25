@@ -17,7 +17,7 @@ const db = require('./models');
 
 //Index page
 app.get('/', function home(req,res)){
-  res.sendFile(__dirname + 'view/index.html');
+  res.sendFile(__dirname + 'views/index.html');
 }
 
 /*
