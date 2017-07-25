@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 const controllers = require('./controllers');
 
-const db = require('./models');
+//const db = require('./models');
 
 
 //BASIC ROUTE
