@@ -15,7 +15,7 @@ const controllers = require('./controllers');
 
 //Index page
 app.get('/', function home(req,res) {
-  res.sendFile('views/index.html' , { root : __dirname});
+  res.sendFile(__dirname + '/views/index.html');
 })
 
 /*

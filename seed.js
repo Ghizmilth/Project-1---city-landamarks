@@ -11,7 +11,7 @@ cityList.push({
 
 
 
-db.City.remove({}, function(err, Cities){
+/*db.City.remove({}, function(err, Cities){
 
   db.City.create(cityList, function(err, Cities){
     if (err) { return console.log('ERROR', err); }
@@ -21,3 +21,4 @@ db.City.remove({}, function(err, Cities){
   });
 
 });
+*/

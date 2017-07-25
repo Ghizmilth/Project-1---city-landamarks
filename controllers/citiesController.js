@@ -2,7 +2,7 @@
  * DATABASE *
  ************/
 
-var db = require('../models');
+ db = require('../models');
 
 /* hard-coded data */
 var cities = [];
@@ -35,10 +35,8 @@ var cities = [];
 // GET /api/cities
 function index(req, res) {
   // send back all cities as JSON
-  db.City.find({}, function(err, allCities) {
-    console.log(allCities);
-    res.json(allCities);
-  });
+  res.json({ data: cities });
+  
 }
 
 // POST /api/cities
