@@ -8,6 +8,27 @@ cityList.push({
               size: '25 sqm',
               imgURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
 });
+citiesList.push({
+              name: 'San Francisco',
+              description: 'blah blah blah',
+              population: '2,000,000',
+              size:'231.89 sq mi',
+              imageURL:'https://en.wikipedia.org/wiki/San_Francisco#/media/File:Golden_Gate_Bridge,_SF_(cropped).jpg'
+            });
+citiesList.push({
+              name: 'Budapest',
+              description: 'blah blah blah',
+              population: '1,000',
+              size:'13.88 sq mi',
+              imageURL:'https://en.wikipedia.org/wiki/Budapest#/media/File:The_building_of_the_Hungarian_Parliament_(10890208584).jpg'
+            });
+citiesList.push({
+              name: 'Tokyo',
+              description: 'Ichi Ni San ',
+              population: '1,234,5678',
+              size:'3.88 sq mi',
+              imageURL:'http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/tokyo-mud-bath-bar-mudbath0716.jpg?itok=dJ8lDXJh'
+            });
 
 
 

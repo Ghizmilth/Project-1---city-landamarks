@@ -1,4 +1,4 @@
 module.exports = {
-  api: require('./apiController'),
-  cities: require('./citiesController')
+  api: require('./apiController.js'),
+  cities: require('./citiesController.js')
 }

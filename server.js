@@ -3,7 +3,7 @@ const express = require('express'),
       app = express(),
       bodyParser = require('body-parser');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const controllers = require('./controllers');
@@ -17,6 +17,8 @@ const controllers = require('./controllers');
 app.get('/', function home(req,res) {
   res.sendFile('views/index.html' , { root : __dirname});
 })
+
+
 
 /*
  * JSON API Endpoints
