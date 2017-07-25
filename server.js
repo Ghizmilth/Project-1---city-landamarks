@@ -15,7 +15,7 @@ const controllers = require('./controllers');
 
 //Index page
 app.get('/', function home(req,res) {
-  res.sendFile(__dirname + 'views/index.html');
+  res.sendFile('views/index.html' , { root : __dirname});
 })
 
 /*
@@ -23,7 +23,7 @@ app.get('/', function home(req,res) {
  */
 
 app.get('/api', controllers.api.index);
-
+app.get('/api/cities', controllers.cities.index);
 
 
 //LISTENING
