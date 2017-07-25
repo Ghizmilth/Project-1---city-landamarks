@@ -80,3 +80,10 @@ CHALLENGES:
 
 ### 9. Map with pins of the landmarks.
   - Create an API connection to show the submitted landmarks on the a map
+
+
+
+
+# ERD and Database Models
+
+![Database Model and ERD](http://i.imgur.com/m9279zE.png)
