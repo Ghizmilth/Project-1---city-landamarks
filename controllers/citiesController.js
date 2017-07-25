@@ -18,7 +18,15 @@ var cities = [];
                 description: 'blah blah blah',
                 population: '1,000',
                 size:'13.88 sq mi',
-                imageURL:''
+                imageURL:'https://en.wikipedia.org/wiki/Budapest#/media/File:The_building_of_the_Hungarian_Parliament_(10890208584).jpg'
+              });
+  cities.push({
+                _id: 102,
+                name: 'Tokyo',
+                description: 'Ichi Ni San ',
+                population: '1,234,5678',
+                size:'3.88 sq mi',
+                imageURL:'http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/tokyo-mud-bath-bar-mudbath0716.jpg?itok=dJ8lDXJh'
               });
 
 
