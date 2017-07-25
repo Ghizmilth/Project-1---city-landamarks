@@ -1,8 +1,8 @@
 //REQUIRE EXPRESS
-const express = require('express');
-app = express();
+const express = require('express'),
+      app = express();
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 const controllers = require('./controllers');
 
@@ -16,9 +16,9 @@ const db = require('./models');
 //});
 
 //Index page
-app.get('/', function home(req,res)){
-  res.sendFile(__dirname + 'view/index.html');
-}
+app.get('/', function home(req,res) {
+  res.sendFile(__dirname + 'views/index.html');
+})
 
 /*
  * JSON API Endpoints
