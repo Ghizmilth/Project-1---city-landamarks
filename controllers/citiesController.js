@@ -2,6 +2,8 @@
  * DATABASE *
  ************/
 
+var db = require('../models');
+
 /* hard-coded data */
 var cities = [];
   cities.push({

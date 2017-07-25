@@ -9,6 +9,8 @@ cityList.push({
               imgURL: ''
 });
 
+
+
 db.City.remove({}, function(err, Cities){
 
   db.City.create(cityList, function(err, Cities){
