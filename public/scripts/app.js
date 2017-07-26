@@ -1,5 +1,7 @@
+let cityList = 0;
+
 $(document).ready(function() {
-  console.log('JS is Loaded');
+  console.log('JS is loaded');
 
 //This allows us to render albums on main page
   $.ajax({
@@ -17,7 +19,6 @@ $(document).ready(function() {
   //click on save button in add form
 
   $('#cityModal').on('click','#saveCity',handleNewCitySongSubmit)
-  //delete this later.. need this for push
 
 });
 
@@ -42,7 +43,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="cityName">City Name</label>
               <div class="col-md-4">
-                <input id="name" name="cityName" type="text" placeholder="${db.cities.description}" class="form-control input-md" required="">
+                <input id="name" name="cityName" type="text" placeholder="" val="${city.name}" class="form-control input-md" required="">
               </div>
             </div>
 
@@ -120,14 +121,6 @@ function handleCityEdit(e) {
 
 
 
-function openModalForCity(cityId) {
-  console.log('Edit city clicked');
-
-}
-
-
-
-
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
@@ -168,64 +161,8 @@ function renderOneCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
   `);
-
   $('#city-render').prepend(cityHtml);
 }
-
-
-
-
-// when the ADD CITY button is clicked, display the modal to display form for adding a city
-function handleAddCityClick(e) {
-  console.log('add-city clicked!');
-  $('#cityModal').modal();  // display the modal!
-}
-
-
-// when the add city modal submit button is clicked:
-function handleNewCitySongSubmit(e) {
-  e.preventDefault();
-  var $modal = $('#cityModal');
-  var $cityNameField = $modal.find('#cityName');
-  var $descriptionField = $modal.find('#description');
-  var $coordinatesField = $modal.find('#coordinates');
-  var $populationField = $modal.find('#population');
-  var $areaField = $modal.find('#area');
-  var $elevationField = $modal.find('#elevation');
-  var $time_zoneField = $modal.find('#time_zone');
-  var $imageURL = $modal.find('#imageURL');
-
-  var dataToPost= {
-    name: $cityNameField.val(),
-    description: $descriptionField.val(),
-    coordinates: $coordinatesField.val(),
-    population: $populationField.val(),
-    area: $areaField.val(),
-    elevation: $elevationField.val(),
-    time_zone: $time_zoneField.val(),
-    imageURL: $imageURL.val()
-  };
-
-  var cityPostToServer = '/api/cities/';
-  //Post data to city list
-
-  $.post(cityPostToServer, dataToPost, function (data){
-    console.log('received data from post to /cities:', data);
-
-    //clear form
-    $cityNameField.val('');
-    $descriptionField.val('');
-    $coordinatesField.val('');
-    $populationField.val('');
-    $areaField.val('');
-    $elevationField.val('');
-    $time_zoneField.val('');
-    $imageURL.val('');
-  });
-}
-
-
-
 
 // var landmarkHtml = (`
 //     <div class="row album" data-album-id="${album._id}">
