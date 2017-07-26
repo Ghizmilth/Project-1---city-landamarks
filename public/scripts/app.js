@@ -173,7 +173,7 @@ function renderOneCity(city) {
 }
 
 
-
+//hi
 
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
 function handleAddCityClick(e) {
