@@ -10,8 +10,13 @@ $(document).ready(function() {
 
 
 
-  // catch and handle the click on an add city button
+  // click on an add city button
   $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
+
+  //click on save button in add form
+
+  $('#cityModal').on('click','#saveCity',handleNewCitySongSubmit)
+
 
 });
 
@@ -51,6 +56,7 @@ function renderOneCity(city) {
   <button type="button" class="btn btn-edit-city">Edit City</button>
   </section>
   `);
+
   $('#city-render').prepend(cityHtml);
 }
 
@@ -60,11 +66,53 @@ function renderOneCity(city) {
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
 function handleAddCityClick(e) {
   console.log('add-city clicked!');
-  //var currentCityId = $(this).closest('.city').data('city-id'); // "5665ff1678209c64e51b4e7b"
-  //console.log('id',currentCityId);
-  //$('#songModal').data('album-id', currentAlbumId);
   $('#cityModal').modal();  // display the modal!
 }
+
+
+// when the add city modal submit button is clicked:
+function handleNewCitySongSubmit(e) {
+  e.preventDefault();
+  var $modal = $('#cityModal');
+  var $cityNameField = $modal.find('#cityName');
+  var $descriptionField = $modal.find('#description');
+  var $coordinatesField = $modal.find('#coordinates');
+  var $populationField = $modal.find('#population');
+  var $areaField = $modal.find('#area');
+  var $elevationField = $modal.find('#elevation');
+  var $time_zoneField = $modal.find('#time_zone');
+  var $imageURL = $modal.find('#imageURL');
+
+  var dataToPost= {
+    name: $cityNameField.val(),
+    description: $descriptionField.val(),
+    coordinates: $coordinatesField.val(),
+    population: $populationField.val(),
+    area: $areaField.val(),
+    elevation: $elevationField.val(),
+    time_zone: $time_zoneField.val(),
+    imageURL: $imageURL.val()
+  };
+
+  var cityPostToServer = '/api/cities/';
+  //Post data to city list
+
+  $.post(cityPostToServer, dataToPost, function (data){
+    console.log('received data from post to /cities:', data);
+
+    //clear form
+    $cityNameField.val('');
+    $descriptionField.val('');
+    $coordinatesField.val('');
+    $populationField.val('');
+    $areaField.val('');
+    $elevationField.val('');
+    $time_zoneField.val('');
+    $imageURL.val('');
+  });
+}
+
+
 
 
 // var landmarkHtml = (`
