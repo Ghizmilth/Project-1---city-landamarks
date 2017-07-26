@@ -12,6 +12,14 @@ $(document).ready(function() {
 
   $('#city-render').on('click', '.edit-city', handleCityEdit);
 
+
+  // click on an add city button
+  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
+
+  //click on save button in add form
+
+  $('#cityModal').on('click','#saveCity',handleNewCitySongSubmit)
+
 });
 
 
