@@ -17,7 +17,7 @@ $(document).ready(function() {
   //click on save button in add form
 
   $('#cityModal').on('click','#saveCity',handleNewCitySongSubmit)
-
+  //delete this later.. need this for push
 
 });
 
