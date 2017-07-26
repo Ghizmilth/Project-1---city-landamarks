@@ -26,7 +26,7 @@ app.get('/', function home(req,res) {
 
 app.get('/api', controllers.api.index);
 app.get('/api/cities', controllers.cities.index);
-
+app.post('/api/cities', controllers.cities.create);
 
 //LISTENING
 
