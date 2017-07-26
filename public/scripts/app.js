@@ -1,54 +1,70 @@
 $(document).ready(function() {
   console.log('JS is loaded');
 
-
+//This allows us to render albums on main page
   $.ajax({
     method: 'GET',
     url: '/api/cities',
     success: renderCities
-  });
+  })
 
+  $('#city-render').on('click', '.edit-city', handleCityEdit);
 
 
 
 
 });
 
+
+//Edit a city
+function handleCityEdit(e) {
+  
+  console.log(e.target);
+  let cityId = $(e.target).data('city-id');
+  console.log('edit city', cityId);
+};
+
+
+
+//Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
   });
 }
 
+//Render One City on HTML
 function renderOneCity(city) {
   console.log('rendering city', city);
 
   var cityHtml = (`
-  <section class="row" data-city-id="${city._id}">
-    <article class="col-sm-6">
+  <div class="row city" data-city-id="${city._id}">
+
+    <div class="col-sm-6">
       <h2>${city.name}</h2>
       <p>${city.description}</P>
-      </article>
-      <article class="col-sm-6" id="city-image">
-        <img src="${city.imageURL}" height="400" width="400"></img>
-      </article>
-  </section>
+    </div>
+    <div class="row"
+      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+      <img src="${city.imageURL}"></img>
+      </div>
+    </div>
 
-  <section class="modal-footer">
-  <div class="row">
-     <article class="col-md-12" id="city-facts">
-       <ul>
-       <li>Coordinates: ${city.coordinates}</li>
-       <li>Population: ${city.population}</li>
-       <li>City Area: ${city.area}</li>
-       <li>Elevation: ${city.elevation}</li>
-       <li>Time-Zone: ${city.time_zone}</li>
-       </ul>
-     </article>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-12" id="city-facts">
+          <ul>
+            <li>Coordinates: ${city.coordinates}</li>
+              <li>Population: ${city.population}</li>
+              <li>City Area: ${city.area}</li>
+              <li>Elevation: ${city.elevation}</li>
+              <li>Time-Zone: ${city.time_zone}</li>
+         </ul>
+       </div>
+      </div>
+    </div>
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
-
-  <button type="button" class="btn btn-edit-city">Edit City</button>
-  </section>
   `);
   $('#city-render').prepend(cityHtml);
 }
