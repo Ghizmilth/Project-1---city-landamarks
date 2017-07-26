@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 // let Landmark = require
 let CitiesSchema = new Schema({
-  cityName: String,
+  name: String,
   description: String,
   population: Number,
   size: String,
   imageURL: String
 })
 
-let Cities = mongoose.model('Cities', CitiesSchema);
+let City = mongoose.model('City', CitiesSchema);
 
 module.exports = City;
