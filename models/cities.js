@@ -5,8 +5,11 @@ const Schema = mongoose.Schema;
 let CitiesSchema = new Schema({
   name: String,
   description: String,
-  population: Number,
-  size: String,
+  coordinates: String,
+  population: String,
+  area: String,
+  elevation: String,
+  time_zone: String,
   imageURL: String
 })
 

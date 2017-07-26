@@ -2,32 +2,44 @@ const db = require("./models");
 
 var cityList =[];
             cityList.push({
-              name: 'San Francisco',
-              description: 'San Francisco was founded on June 29, 1776, when colonists from Spain established Presidio of San Francisco at the Golden Gate and Mission San Francisco de Asís a few miles away, all named for St. Francis of Assisi.[9] The California Gold Rush of 1849 brought rapid growth, making it the largest city on the West Coast at the time. San Francisco became a consolidated city-county in 1856.[26] After three-quarters of the city was destroyed by the 1906 earthquake and fire,[27] San Francisco was quickly rebuilt, hosting the Panama-Pacific International Exposition nine years later.',
-              population: 2000000,
-              size: '25 sqm',
-              imgURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
-            });
-            cityList.push({
-              name: 'San Francisco',
-              description: 'blah blah blah',
-              population: 2000000,
-              size:'231.89 sq mi',
-              imageURL:'https://en.wikipedia.org/wiki/San_Francisco#/media/File:Golden_Gate_Bridge,_SF_(cropped).jpg'
+              name: 'Rome',
+              description: 'Rome, Italy’s capital, is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display. Ancient ruins such as the Forum and the Colosseum evoke the power of the former Roman Empire. Vatican City, headquarters of the Roman Catholic Church, has St. Peter’s Basilica and the Vatican Museums, which house masterpieces such as Michelangelo’s Sistine Chapel frescoes.',
+              coordinates: '41°54′N 12°30′E',
+              population: '2,877,215',
+              area:'496.3 sq mi',
+              elevation: '69 ft',
+              time_zone: 'CET (UTC+1)',
+              imageURL:'https://www.thetimes.co.uk/travel/s3/growthtravel-prod/uploads/2016/04/Rome-on-a-budget.jpg'
             });
             cityList.push({
               name: 'Budapest',
-              description: 'blah blah blah',
-              population: 1000,
-              size:'13.88 sq mi',
-              imageURL:'https://en.wikipedia.org/wiki/Budapest#/media/File:The_building_of_the_Hungarian_Parliament_(10890208584).jpg'
+              description: 'Budapest, Hungary’s capital, is bisected by the River Danube. Its 19th-century Chain Bridge connects the hilly Buda district with flat Pest. A funicular runs up Castle Hill to Buda’s Old Town, where the Budapest History Museum traces city life from Roman times onward. Trinity Square is home to 13th-century Matthias Church and the turrets of the Fishermen’s Bastion, which offer sweeping views.',
+              coordinates: '47°29′33″N 19°03′05″E',
+              population: '1,759,407',
+              area:'202.8 sq mi',
+              elevation: 'Lowest 315 ft, Highest 1,729 ft',
+              time_zone: 'CET (UTC+1)',
+              imageURL:'http://rawlangs.com/wp-content/uploads/2014/09/Chain_Bridge.jpg'
             });
             cityList.push({
               name: 'Tokyo',
-              description: 'Ichi Ni San ',
-              population: 1234567,
-              size:'3.88 sq mi',
+              description: 'Tokyo, Japan busiest capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding woods. The Imperial Palace sits amid large public gardens. The meny city museums offer exhibits ranging from classical art (in the Tokyo National Museum) to a reconstructed kabuki theater (in the Edo-Tokyo Museum).',
+              coordinates: '35°41′N 139°41′E',
+              population: '13,617,445',
+              area:'844.66 sq mi',
+              elevation: '130 ft',
+              time_zone: 'Japan Standard Time (UTC+9)',
               imageURL:'http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/tokyo-mud-bath-bar-mudbath0716.jpg?itok=dJ8lDXJh'
+            });
+            cityList.push({
+              name: 'San Francisco, CA',
+              description: 'San Francisco, in northern California, is a hilly city on the tip of a peninsula surrounded by the Pacific Ocean and San Francisco Bay. It is known for its year-round fog, iconic Golden Gate Bridge, cable cars and colorful Victorian houses. The Financial District Transamerica Pyramid is its most distinctive skyscraper. In the bay sits Alcatraz Island, site of the notorious former prison.',
+              coordinates:'37.7749° N, 122.4194° W',
+              population: '805,523',
+              area: '231.89 sq mi',
+              elevation: '52 ft',
+              time_zone: 'Pacific Time Zone (UTC-8)',
+              imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
             });
 
 
