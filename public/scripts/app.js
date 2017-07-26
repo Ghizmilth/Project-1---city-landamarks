@@ -1,13 +1,14 @@
 $(document).ready(function() {
   console.log('JS is Loaded');
 
-
+//This allows us to render albums on main page
   $.ajax({
     method: 'GET',
     url: '/api/cities',
     success: renderCities
-  });
+  })
 
+  $('#city-render').on('click', '.edit-city', handleCityEdit);
 
 
   // click on an add city button
@@ -20,41 +21,152 @@ $(document).ready(function() {
 
 });
 
+
+//Edit a city
+function handleCityEdit(e) {
+  console.log(e.target);
+  let city = $(e.target).data('city-id');
+  console.log('edit city', city);
+
+  let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${city._id}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add City</h4>
+        </div>
+        <div class="modal-body">
+
+          <fieldset class='form-horizontal'>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="cityName">City Name</label>
+              <div class="col-md-4">
+                <input id="name" name="cityName" type="text" placeholder="${db.cities.description}" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="description">Description</label>
+              <div class="col-md-4">
+                <input id="description" name="description" type="text" placeholder="${city.description}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="coordinates">Coordinates</label>
+              <div class="col-md-4">
+                <input id="coordinates" name="coordinates" type="text" placeholder="${city.coordinates}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="population">Population</label>
+              <div class="col-md-4">
+                <input id="population" name="population" type="text" placeholder="${city.population}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="area">Area</label>
+              <div class="col-md-4">
+                <input id="area" name="area" type="text" placeholder="${city.area}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="elevation">Elevation</label>
+              <div class="col-md-4">
+                <input id="elevation" name="elevation" type="text" placeholder="${city.elevation}" class="form-control input-md">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="time_zone">Time Zone</label>
+              <div class="col-md-4">
+                <input id="time_zone" name="time_zone" type="text" placeholder="${city.time_zone}" class="form-control input-md">
+              </div>
+            </div>
+
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="imageURL">Image URL</label>
+              <div class="col-md-4">
+                <input id="imageURL" name="imageURL" type="imageURL" placeholder="${city.imageURL}" class="form-control input-md">
+              </div>
+            </div>
+
+          </fieldset>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveCity">Edit city</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal --> `)
+
+  $('#city-edit-modal').prepend(cityToEdit);
+  $('#editCityModal').modal();
+};
+
+
+
+function openModalForCity(cityId) {
+  console.log('Edit city clicked');
+
+}
+
+
+
+
+//Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
   });
 }
 
+//Render One City on HTML
 function renderOneCity(city) {
   console.log('rendering city', city);
 
   var cityHtml = (`
-  <section class="row" data-city-id="${city._id}">
-    <article class="col-sm-6">
+  <div class="row city" data-city-id="${city._id}">
+
+    <div class="col-sm-6">
       <h2>${city.name}</h2>
       <p>${city.description}</P>
-      </article>
-      <article class="col-sm-6" id="city-image">
-        <img src="${city.imageURL}" height="400" width="400"></img>
-      </article>
-  </section>
+    </div>
+    <div class="row"
+      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+      <img src="${city.imageURL}"></img>
+      </div>
+    </div>
 
-  <section class="modal-footer">
-  <div class="row">
-     <article class="col-md-12" id="city-facts">
-       <ul>
-       <li>Coordinates: ${city.coordinates}</li>
-       <li>Population: ${city.population}</li>
-       <li>City Area: ${city.area}</li>
-       <li>Elevation: ${city.elevation}</li>
-       <li>Time-Zone: ${city.time_zone}</li>
-       </ul>
-     </article>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-12" id="city-facts">
+          <ul>
+            <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
+              <li>Population: ${city.population}</li>
+              <li>City Area: ${city.area}</li>
+              <li>Elevation: ${city.elevation}</li>
+              <li>Time-Zone: ${city.time_zone}</li>
+         </ul>
+       </div>
+      </div>
+    </div>
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
-
-  <button type="button" class="btn btn-edit-city">Edit City</button>
-  </section>
   `);
 
   $('#city-render').prepend(cityHtml);
