@@ -3,13 +3,16 @@ const Schema = mongoose.Schema;
 
 // let Landmark = require
 let CitiesSchema = new Schema({
-  cityName: String,
+  name: String,
   description: String,
-  population: Number,
-  size: String,
+  coordinates: String,
+  population: String,
+  area: String,
+  elevation: String,
+  time_zone: String,
   imageURL: String
 })
 
-let Cities = mongoose.model('Cities', CitiesSchema);
+let City = mongoose.model('City', CitiesSchema);
 
 module.exports = City;
