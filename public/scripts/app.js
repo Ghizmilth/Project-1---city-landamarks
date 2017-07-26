@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  console.log('JS is loaded');
+  console.log('JS is Loaded');
 
 
   $.ajax({
@@ -10,7 +10,8 @@ $(document).ready(function() {
 
 
 
-
+  // catch and handle the click on an add city button
+  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
 });
 
@@ -52,6 +53,19 @@ function renderOneCity(city) {
   `);
   $('#city-render').prepend(cityHtml);
 }
+
+
+
+
+// when the ADD CITY button is clicked, display the modal to display form for adding a city
+function handleAddCityClick(e) {
+  console.log('add-city clicked!');
+  //var currentCityId = $(this).closest('.city').data('city-id'); // "5665ff1678209c64e51b4e7b"
+  //console.log('id',currentCityId);
+  //$('#songModal').data('album-id', currentAlbumId);
+  $('#cityModal').modal();  // display the modal!
+}
+
 
 // var landmarkHtml = (`
 //     <div class="row album" data-album-id="${album._id}">
