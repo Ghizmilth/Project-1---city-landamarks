@@ -1,5 +1,7 @@
+let cityList = 0;
+
 $(document).ready(function() {
-  console.log('JS is Loaded');
+  console.log('JS is loaded');
 
 //This allows us to render albums on main page
   $.ajax({
@@ -17,7 +19,6 @@ $(document).ready(function() {
   //click on save button in add form
 
   $('#cityModal').on('click','#saveCity',handleNewCitySongSubmit)
-  //delete this later.. need this for push
 
 });
 
@@ -42,7 +43,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="cityName">City Name</label>
               <div class="col-md-4">
-                <input id="name" name="cityName" type="text" placeholder="${db.cities.description}" class="form-control input-md" required="">
+                <input id="name" name="cityName" type="text" placeholder="" val="${city.name}" class="form-control input-md" required="">
               </div>
             </div>
 
@@ -120,14 +121,6 @@ function handleCityEdit(e) {
 
 
 
-function openModalForCity(cityId) {
-  console.log('Edit city clicked');
-
-}
-
-
-
-
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
@@ -168,9 +161,9 @@ function renderOneCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
   `);
-
   $('#city-render').prepend(cityHtml);
 }
+
 
 
 //hi
@@ -223,9 +216,6 @@ function handleNewCitySongSubmit(e) {
     $imageURL.val('');
   });
 }
-
-
-
 
 // var landmarkHtml = (`
 //     <div class="row album" data-album-id="${album._id}">
