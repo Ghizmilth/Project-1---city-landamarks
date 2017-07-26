@@ -23,7 +23,7 @@
 <body>
 
   <div class="container">
-    <h1>Wander Around!</h1>
+    <h1>Wander Around!!</h1>
     <p>Don't suffer of FOMO anymore. Know the city you're visiting!</p>
   </div>
 
@@ -158,8 +158,57 @@
   </section>
 
 
+  <!-- begin cityModal: this is not visible until you call .modal() on it -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="landmarkModal">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title">Add Landmark</h4>
+  </div>
+  <div class="modal-body">
+
+  <fieldset class='form-horizontal'>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="landmarkName">Landmark Name</label>
+      <div class="col-md-4">
+        <input id="landmarkName" name="landmarkName" type="text" placeholder="" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="address">Address</label>
+      <div class="col-md-4">
+        <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="landmarkImageURL">Image URL</label>
+      <div class="col-md-4">
+        <input id="landmarkImageURL" name="landmarkImageURL" type="text" placeholder="" class="form-control input-md">
+      </div>
+    </div>
+
+  </fieldset>
+
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" class="btn btn-primary" id="saveLandmark">Save changes</button>
+  </div>
+  </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 <!-- MODAL for EDIT city button -->
+<div class="container" id="city-edit-modal">
+</div>
+
+
+<!-- MODAL for add landmark button -->
 <div class="container" id="city-edit-modal">
 </div>
 
