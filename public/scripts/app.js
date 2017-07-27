@@ -35,7 +35,7 @@ function handleCityEdit(city) {
     console.log('got back the city object', editCity);
 
 
-   let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${editCity._id}">
+   let cityToEdit = (`  <div class="modal fade editCityNow" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${editCity._id}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -167,13 +167,17 @@ function handleCityUpdateResponse(data) {
 
   let cityId = data._id;
   console.log(cityId);
-  // scratch this city from the page
-  $('#editCityModal[data-album-id="'+ cityId +'"]').remove();
-  // // and then re-draw it with the updates ;-)
-  renderOneCity(data);
-  //hacky way to do it - to do make the above asynchronous to avoid this
-  window.location.reload();
-}
+
+//  $('.editCityNow[data-city-id="'+ cityId'"]').remove();
+
+  // close modal
+    $('editCityModal').modal('hide');
+    // update the correct album to show the new song
+
+    window.location = window.location;
+
+      renderOneCity(data);
+  };
 
 
 

@@ -84,7 +84,7 @@ function update(req, res) {
     foundCity.description = req.body.description;
     foundCity.coordinates = req.body.coordinates;
     foundCity.population = req.body.population;
-    foundCity.area = req.body.population;
+    foundCity.area = req.body.area;
     foundCity.elevation = req.body.elevation;
     foundCity.time_zone = req.body.time_zone;
     foundCity.imageURL = req.body.imageURL;
