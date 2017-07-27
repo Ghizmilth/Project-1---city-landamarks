@@ -42,6 +42,12 @@ var cityList =[];
               imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
             });
 
+var landmarkList = [];
+  landmarkList.push({
+    name: 'Golden Gate Bridge',
+    address: '',
+    imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+});
 
 //removing all hardcoded dat and adding new one
 db.City.remove({}, function(err, cities){
