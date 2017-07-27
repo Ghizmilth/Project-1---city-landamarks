@@ -11,8 +11,9 @@ $(document).ready(function() {
     success: renderCities
   })
 
+//click on EDIT city button
   $('#city-render').on('click', '.edit-city', handleCityEdit);
-
+  $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
 
   // click on an add city button
   $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
@@ -32,9 +33,9 @@ function handleCityEdit(city) {
   console.log('edit city', cityId);
   $.get('/api/cities/' + cityId, function(editCity){
     console.log('got back the city object', editCity);
-  //  populateEditCityModal(editCity, cityId);
 
-   let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${city._id}">
+
+   let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${editCity._id}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -56,7 +57,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="description">Description</label>
               <div class="col-md-4">
-                <input id="description" name="description" type="text" placeholder="" value="${editCity.description}" class="form-control input-md">
+                <input id="description" name="description" type="text" placeholder="" value="${editCity.description}" class="form-control input-md edited-city-description">
               </div>
             </div>
 
@@ -64,7 +65,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="coordinates">Coordinates</label>
               <div class="col-md-4">
-                <input id="coordinates" name="coordinates" type="text" placeholder="" value="${editCity.coordinates}" class="form-control input-md">
+                <input id="coordinates" name="coordinates" type="text" placeholder="" value="${editCity.coordinates}" class="form-control input-md edited-city-coordinates">
               </div>
             </div>
 
@@ -72,7 +73,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="population">Population</label>
               <div class="col-md-4">
-                <input id="population" name="population" type="text" placeholder="" value="${editCity.population}" class="form-control input-md">
+                <input id="population" name="population" type="text" placeholder="" value="${editCity.population}" class="form-control input-md edited-city-population">
               </div>
             </div>
 
@@ -80,7 +81,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="area">Area</label>
               <div class="col-md-4">
-                <input id="area" name="area" type="text" placeholder="" value="${editCity.area}" class="form-control input-md">
+                <input id="area" name="area" type="text" placeholder="" value="${editCity.area}" class="form-control input-md edited-city-area">
               </div>
             </div>
 
@@ -88,7 +89,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="elevation">Elevation</label>
               <div class="col-md-4">
-                <input id="elevation" name="elevation" type="text" placeholder="" value="${editCity.elevation}" class="form-control input-md">
+                <input id="elevation" name="elevation" type="text" placeholder="" value="${editCity.elevation}" class="form-control input-md edited-city-elevation">
               </div>
             </div>
 
@@ -96,7 +97,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="time_zone">Time Zone</label>
               <div class="col-md-4">
-                <input id="time_zone" name="time_zone" type="text" placeholder="" value="${editCity.time_zone}" class="form-control input-md">
+                <input id="time_zone" name="time_zone" type="text" placeholder="" value="${editCity.time_zone}" class="form-control input-md edited-city-time-zone">
               </div>
             </div>
 
@@ -105,7 +106,7 @@ function handleCityEdit(city) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="imageURL">Image URL</label>
               <div class="col-md-4">
-                <input id="imageURL" name="imageURL" type="imageURL" placeholder="" value="${editCity.imageURL}" class="form-control input-md">
+                <input id="imageURL" name="imageURL" type="imageURL" placeholder="" value="${editCity.imageURL}" class="form-control input-md edited-city-imageURL">
               </div>
             </div>
 
@@ -114,7 +115,7 @@ function handleCityEdit(city) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="saveCity">Edit city</button>
+          <button type="button" class="btn btn-primary" id="save-edit-city">Edit city</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -128,16 +129,32 @@ function handleCityEdit(city) {
 //calls modal to show up
  $('#editCityModal').modal();
 
-
-
-
 });
 };
 
-// //populate edit city modal
-//   function populateEditCityModal(editCity, cityId) {
-//     let editCityToEdit = buildEditCityForms(editCity, cityId);
-//   }
+function handleEditCityButton (edit) {
+    edit.preventDefault();
+    let cityId = $(this).parents('#editCityModal').data('city-id');
+    let $cityRow = $
+    console.log('edit city', cityId);
+    //var $cityRow = $('.editCityModal')
+
+    let cityData = {
+      name: $(".edited-city-name").val(),
+      description: $(".edited-city-description").val(),
+      coordinates: $(".edited-city-coordinates").val(),
+      population: $(".edited-city-population").val(),
+      area: $(".edited-city-area").val(),
+      elevation: $(".edited-city-elevation").val(),
+      time_zone: $(".edited-city-time-zone").val(),
+      imageURL: $(".edited-city-imageURL").val()
+    }
+      console.log(cityData);
+//    console.log('updating the city with Id', cityId, 'with data', )
+
+
+
+   }
 
 //Render cities on HTML
 function renderCities(cities) {
@@ -170,8 +187,8 @@ function renderOneCity(city) {
             <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
               <li id="cityPopulation">Population: ${city.population}</li>
               <li id="cityArea">City Area: ${city.area}</li>
-              <li>Elevation: ${city.elevation}</li>
-              <li>Time-Zone: ${city.time_zone}</li>
+              <li id="cityElevation">Elevation: ${city.elevation}</li>
+              <li id="cityTimeZone">Time-Zone: ${city.time_zone}</li>
          </ul>
        </div>
       </div>
