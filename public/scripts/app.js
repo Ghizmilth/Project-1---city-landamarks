@@ -132,12 +132,12 @@ function handleCityEdit(city) {
 });
 };
 
+
+
 function handleEditCityButton (edit) {
     edit.preventDefault();
     let cityId = $(this).parents('#editCityModal').data('city-id');
-    let $cityRow = $
-    console.log('edit city', cityId);
-    //var $cityRow = $('.editCityModal')
+
 
     let cityData = {
       name: $(".edited-city-name").val(),
@@ -149,12 +149,33 @@ function handleEditCityButton (edit) {
       time_zone: $(".edited-city-time-zone").val(),
       imageURL: $(".edited-city-imageURL").val()
     }
-      console.log(cityData);
-//    console.log('updating the city with Id', cityId, 'with data', )
+
+      console.log('Editing this city', cityId, 'with the following info', cityData);
+
+      $.ajax ({
+        method: 'PUT',
+        url: '/api/cities/' + cityId,
+        data: cityData,
+        success: handleCityUpdateResponse
+    });
+}
 
 
+//This handles the update of a city after click on Edit Button
+function handleCityUpdateResponse(data) {
+  console.log('response to update', data);
 
-   }
+  let cityId = data._id;
+  console.log(cityId);
+  // scratch this city from the page
+  $('#editCityModal[data-album-id="'+ cityId +'"]').remove();
+  // // and then re-draw it with the updates ;-)
+  renderOneCity(data);
+  //hacky way to do it - to do make the above asynchronous to avoid this
+  window.location.reload();
+}
+
+
 
 //Render cities on HTML
 function renderCities(cities) {

@@ -28,6 +28,7 @@ app.get('/api', controllers.api.index);
 app.get('/api/cities', controllers.cities.index);
 app.get('/api/cities/:citiesId', controllers.cities.show);
 app.post('/api/cities', controllers.cities.create);
+app.put('/api/cities/:citiesId', controllers.cities.update);
 
 //LISTENING
 
