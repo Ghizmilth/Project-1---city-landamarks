@@ -61,7 +61,11 @@ function create(req, res) {
 
 // GET /api/cities/:citiesId
 function show(req, res) {
-  // find one city by id and send it back as JSON
+    db.City.findById(req.params.citiesId, function(err, foundCity) {
+      if(err) {console.log('cityControllers.show error', err); }
+      console.log('citiesControllers.show responding with', foundCity);
+      res.json(foundCity);
+    })// find one city by id and send it back as JSON
 }
 
 // DELETE /api/cities/:citiesId

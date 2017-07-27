@@ -1,5 +1,6 @@
 let cityList = 0;
 
+
 $(document).ready(function() {
   console.log('JS is loaded');
 
@@ -24,17 +25,21 @@ $(document).ready(function() {
 
 
 //Edit a city
-function handleCityEdit(e) {
-  console.log(e.target);
-  let city = $(e.target).data('city-id');
-  console.log('edit city', city);
+function handleCityEdit(city) {
+  console.log(city);
+  let $cityInfoEdit = $(city.target)
+  let cityId = $cityInfoEdit.data('city-id');
+  console.log('edit city', cityId);
+  $.get('/api/cities/' + cityId, function(editCity){
+    console.log('got back the city object', editCity);
+  //  populateEditCityModal(editCity, cityId);
 
-  let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${city._id}">
+   let cityToEdit = (`  <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${city._id}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Add City</h4>
+          <h4 class="modal-title">Edit City</h4>
         </div>
         <div class="modal-body">
 
@@ -42,8 +47,8 @@ function handleCityEdit(e) {
             <!-- Text input-->
             <div class="form-group">
               <label class="col-md-4 control-label" for="cityName">City Name</label>
-              <div class="col-md-4">
-                <input id="name" name="cityName" type="text" placeholder="" val="${city.name}" class="form-control input-md" required="">
+              <div id="cityNameInput" class="col-md-4">
+                <input id="name" name="cityName" type="text" placeholder="" value="${editCity.name}" class="form-control input-md edited-city-name" required="">
               </div>
             </div>
 
@@ -51,7 +56,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="description">Description</label>
               <div class="col-md-4">
-                <input id="description" name="description" type="text" placeholder="${city.description}" class="form-control input-md">
+                <input id="description" name="description" type="text" placeholder="" value="${editCity.description}" class="form-control input-md">
               </div>
             </div>
 
@@ -59,7 +64,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="coordinates">Coordinates</label>
               <div class="col-md-4">
-                <input id="coordinates" name="coordinates" type="text" placeholder="${city.coordinates}" class="form-control input-md">
+                <input id="coordinates" name="coordinates" type="text" placeholder="" value="${editCity.coordinates}" class="form-control input-md">
               </div>
             </div>
 
@@ -67,7 +72,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="population">Population</label>
               <div class="col-md-4">
-                <input id="population" name="population" type="text" placeholder="${city.population}" class="form-control input-md">
+                <input id="population" name="population" type="text" placeholder="" value="${editCity.population}" class="form-control input-md">
               </div>
             </div>
 
@@ -75,7 +80,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="area">Area</label>
               <div class="col-md-4">
-                <input id="area" name="area" type="text" placeholder="${city.area}" class="form-control input-md">
+                <input id="area" name="area" type="text" placeholder="" value="${editCity.area}" class="form-control input-md">
               </div>
             </div>
 
@@ -83,7 +88,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="elevation">Elevation</label>
               <div class="col-md-4">
-                <input id="elevation" name="elevation" type="text" placeholder="${city.elevation}" class="form-control input-md">
+                <input id="elevation" name="elevation" type="text" placeholder="" value="${editCity.elevation}" class="form-control input-md">
               </div>
             </div>
 
@@ -91,7 +96,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="time_zone">Time Zone</label>
               <div class="col-md-4">
-                <input id="time_zone" name="time_zone" type="text" placeholder="${city.time_zone}" class="form-control input-md">
+                <input id="time_zone" name="time_zone" type="text" placeholder="" value="${editCity.time_zone}" class="form-control input-md">
               </div>
             </div>
 
@@ -100,7 +105,7 @@ function handleCityEdit(e) {
             <div class="form-group">
               <label class="col-md-4 control-label" for="imageURL">Image URL</label>
               <div class="col-md-4">
-                <input id="imageURL" name="imageURL" type="imageURL" placeholder="${city.imageURL}" class="form-control input-md">
+                <input id="imageURL" name="imageURL" type="imageURL" placeholder="" value="${editCity.imageURL}" class="form-control input-md">
               </div>
             </div>
 
@@ -115,11 +120,24 @@ function handleCityEdit(e) {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal --> `)
 
-  $('#city-edit-modal').prepend(cityToEdit);
-  $('#editCityModal').modal();
+
+
+//adds the modal into the HTML after loading the city info
+ $('#city-edit-modal').prepend(cityToEdit);
+
+//calls modal to show up
+ $('#editCityModal').modal();
+
+
+
+
+});
 };
 
-
+// //populate edit city modal
+//   function populateEditCityModal(editCity, cityId) {
+//     let editCityToEdit = buildEditCityForms(editCity, cityId);
+//   }
 
 //Render cities on HTML
 function renderCities(cities) {
@@ -150,8 +168,8 @@ function renderOneCity(city) {
         <div class="col-md-12" id="city-facts">
           <ul>
             <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
-              <li>Population: ${city.population}</li>
-              <li>City Area: ${city.area}</li>
+              <li id="cityPopulation">Population: ${city.population}</li>
+              <li id="cityArea">City Area: ${city.area}</li>
               <li>Elevation: ${city.elevation}</li>
               <li>Time-Zone: ${city.time_zone}</li>
          </ul>
