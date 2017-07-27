@@ -21,7 +21,7 @@ $(document).ready(function() {
   $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('body').on('click','#landmarkModal', handleAddLandmarkClick);
+  $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
 });
 
@@ -223,5 +223,5 @@ function handleNewCitySubmit(e) {
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log('add-city clicked!');
-  $('#cityModal').modal();  // display the modal!
+  $('#landmarkModal').modal();  // display the modal!
 }
