@@ -33,6 +33,7 @@
       <div class="modal-nav">
         <button type="button" class="btn btn-city">City</button>
           <button type="button" class="btn btn-add-city">Add New City</button>
+            <button type="button" class="btn btn-add-landmark">Add Landmark</button>
         <button type="button" class="btn btn-about">About</button>
       </div>
     </div>
@@ -43,9 +44,9 @@
 
     <div id="city-render"></div>
 
-        <!--FORM to add city modal-->
+<!--FORM to add city modal-->
 
-        <!-- begin cityModal: this is not visible until you call .modal() on it -->
+  <!-- begin cityModal: this is not visible until you call .modal() on it -->
 <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -150,7 +151,6 @@
   <section class="container" id="landmarks">
     <div class="row">
       <article class="col-md-4 landmark-info">
-
       </article>
       <article class="col-md-3 landmark-img">
       </article>
@@ -158,7 +158,7 @@
   </section>
 
 
-  <!-- begin cityModal: this is not visible until you call .modal() on it -->
+  <!-- begin landmarkModal: this is not visible until you call .modal() on it -->
   <div class="modal fade" tabindex="-1" role="dialog" id="landmarkModal">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -173,7 +173,7 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="landmarkName">Landmark Name</label>
       <div class="col-md-4">
-        <input id="landmarkName" name="landmarkName" type="text" placeholder="" class="form-control input-md" required="">
+        <input id="landmarkName" name="landmarkName" type="text" placeholder="enter the landmark name" class="form-control input-md" required="">
       </div>
     </div>
 
@@ -181,7 +181,7 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="address">Address</label>
       <div class="col-md-4">
-        <input id="address" name="address" type="text" placeholder="" class="form-control input-md">
+        <input id="address" name="address" type="text" placeholder="enter the landmark address" class="form-control input-md">
       </div>
     </div>
     <!-- Text input-->
@@ -209,7 +209,8 @@
 
 
 <!-- MODAL for add landmark button -->
-<div class="container" id="city-edit-modal">
+<div class="container" id="landmark-edit-modal">
+
 </div>
 
 
