@@ -9,7 +9,7 @@ $(document).ready(function() {
     method: 'GET',
     url: '/api/cities',
     success: function (data) {
-      renderCities(data);
+      renderOneCityOnly(data);
       populateDropDownCityMenu(data);
     }
   })
@@ -46,9 +46,7 @@ function renderDropMenu(menu) {
   let dropMenu = (`
     <li> <a href='#' class="menulist" data-id-city="${menu._id}">${menu.name}</a</li>
     `);
-    console.log(dropMenu);
     $('.dropdown-menu').append(dropMenu);
-
 }
 
 //Edit a city
@@ -147,8 +145,6 @@ function handleCityEdit(city) {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal --> `)
 
-
-
 //adds the modal into the HTML after loading the city info
  $('#city-edit-modal').prepend(cityToEdit);
 
@@ -207,17 +203,68 @@ function handleCityUpdateResponse(data) {
 
 
 
+
+function renderOneCityOnly(city) {
+    console.log('rendering city', city);
+  //  city.get[0](function () {
+
+    var $oneCity = city[0]._id,
+          oneDescription = city[0].name;
+
+
+    console.log(oneDescription);
+
+
+
+    var oneCity = (`
+    <div class="row city" data-city-id="${city[0]._id}">
+
+      <div class="col-sm-6">
+        <h2>${city[0].name}</h2>
+        <p>${city[0].description}</P>
+      </div>
+      <div class="row"
+        <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+        <img src="${city[0].imageURL}"></img>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12" id="city-facts">
+            <ul>
+              <li id="coordinatesInfo">Coordinates: ${city[0].coordinates}</li>
+                <li id="cityPopulation">Population: ${city[0].population}</li>
+                <li id="cityArea">City Area: ${city[0].area}</li>
+                <li id="cityElevation">Elevation: ${city[0].elevation}</li>
+                <li id="cityTimeZone">Time-Zone: ${city[0].time_zone}</li>
+           </ul>
+         </div>
+        </div>
+      </div>
+      <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Edit City</button>
+    </div>
+    `);
+
+    $('#city-render').append(oneCity);
+  }
+
+
+
+
+
+
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
-  });
-}
+  })
+  };
+
 
 //Render One City on HTML
 function renderOneCity(city) {
   console.log('rendering city', city);
-
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
@@ -247,6 +294,7 @@ function renderOneCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
   `);
+
   $('#city-render').append(cityHtml);
 }
 
