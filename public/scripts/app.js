@@ -31,9 +31,9 @@ $(document).ready(function() {
   //save button - Landmark form
   $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
 
-
-
 });
+
+
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
@@ -162,14 +162,10 @@ function handleCityEdit(city) {
 //calls modal to show up
  $('.editCityNow').modal();
 
-
-
-
 });
 };
 
-
-
+//Calls edit modal to screen
 function handleEditCityButton (edit) {
     edit.preventDefault();
     let cityId = $(this).parents('#editCityModal').data('city-id');
@@ -263,6 +259,7 @@ function renderNewCityUpdated(newCity) {
   $('#city-render').append(cityHtml);
 })
 }
+
 
 
 function renderOneCityOnly(city) {
@@ -459,3 +456,47 @@ function handleNewLandmarkSubmit(e) {
     $landmarkImageURL.val('')
   });
 }
+
+
+
+var map;
+ var infowindow;
+
+
+ function initMap() {
+   var pyrmont = {lat: 37.78, lng: -122.44};
+
+   map = new google.maps.Map(document.getElementById('map'), {
+     center: pyrmont,
+     zoom: 15
+   });
+
+   infowindow = new google.maps.InfoWindow();
+   var service = new google.maps.places.PlacesService(map);
+   service.nearbySearch({
+     location: pyrmont,
+     radius: 500,
+     type: ['store']
+   }, callback);
+ }
+
+ function callback(results, status) {
+   if (status === google.maps.places.PlacesServiceStatus.OK) {
+     for (var i = 0; i < results.length; i++) {
+       createMarker(results[i]);
+     }
+   }
+ }
+
+ function createMarker(place) {
+   var placeLoc = place.geometry.location;
+   var marker = new google.maps.Marker({
+     map: map,
+     position: place.geometry.location
+   });
+
+   google.maps.event.addListener(marker, 'click', function() {
+     infowindow.setContent(place.name);
+     infowindow.open(map, this);
+   });
+ }
