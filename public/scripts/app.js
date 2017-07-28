@@ -15,15 +15,15 @@ $(document).ready(function() {
   $('#city-render').on('click', '.edit-city', handleCityEdit);
   $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
 
-  // click on an add city button
+// click on an ADD city button
   $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
-  //click on save button in add city add form
+//Add City Modal save
 
   $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('.modal-footer').on('click','.btn-add-landmark', handleAddLandmarkClick);
+  $('.landmarks-section').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
   //click on save button in add landmark form
   $('#landmarkModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
@@ -225,17 +225,22 @@ function renderOneCity(city) {
       </div>
     </div>
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
-      <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
+
   </div>
+
+
+
+
+
   `);
   $('#city-render').prepend(cityHtml);
 }
 
 
 
-//hi
 
-// when the ADD CITY button is clicked, display the modal to display form for adding a city
+
+// when the ADD CITY BUTTON is clicked, display the modal to display form for adding a city
 function handleAddCityClick(e) {
   console.log('add-city clicked!');
   $('#cityModal').modal();  // display the modal!
@@ -288,7 +293,7 @@ function handleNewCitySubmit(e) {
 function handleAddLandmarkClick(e) {
   console.log('add-landmark clicked!');
   $('#landmarkModal').modal();  // display the modal!
-}
+};
 
 
 // when the add landmark modal submit button is clicked:

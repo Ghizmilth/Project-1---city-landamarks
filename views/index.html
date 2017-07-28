@@ -15,7 +15,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-  <!--Aplication scripts -->
+  <!--Application scripts -->
   <script src="/scripts/app.js"></script>
 
 </head>
@@ -33,7 +33,7 @@
       <div class="modal-nav">
         <button type="button" class="btn btn-city">City</button>
           <button type="button" class="btn btn-add-city">Add New City</button>
-          
+
         <button type="button" class="btn btn-about">About</button>
       </div>
     </div>
@@ -44,9 +44,9 @@
 
     <div id="city-render"></div>
 
-<!--FORM to add city modal-->
+<!--FORM to add CITY MODAL-->
 
-  <!-- begin cityModal: this is not visible until you call .modal() on it -->
+  <!-- this is not visible until you call .modal() on it -->
 <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -147,13 +147,15 @@
   </main>
 
 
-<!-- Begin of landmarks -->
-  <section class="container" id="landmarks">
+<!-- Begin of landmarks-->
+  <section class="container" id="landmarks-section">
     <div class="row">
-      <article class="col-md-4 landmark-info">
-      </article>
-      <article class="col-md-3 landmark-img">
-      </article>
+      <div id="landmarks-render">
+
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
     </div>
   </section>
 
@@ -203,15 +205,9 @@
   </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-<!-- MODAL for EDIT city button -->
-<div class="container" id="city-edit-modal">
-</div>
 
 
-<!-- MODAL for add landmark button -->
-<div class="container" id="landmark-edit-modal">
 
-</div>
 
 
 
