@@ -8,7 +8,10 @@ $(document).ready(function() {
   $.ajax({
     method: 'GET',
     url: '/api/cities',
-    success: renderCities
+    success: function (data) {
+      renderCities(data);
+      populateDropDownCityMenu(data);
+    }
   })
 
 //click on EDIT city button
@@ -25,8 +28,28 @@ $(document).ready(function() {
   //Open Add landmark modal
   $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
+  //$('#myDropdown').on('show.bs.dropdown', populateDropDownCityMenu;
+
 });
 
+
+//Populate the dropdown menu for selecting cityList
+function populateDropDownCityMenu(menu) {
+    menu.forEach(function(menu) {
+    renderDropMenu(menu);
+})
+  console.log(menu);
+};
+
+function renderDropMenu(menu) {
+  console.log('collecting menu list');
+  let dropMenu = (`
+    <li> <a href='#' class="menulist" data-id-city="${menu._id}">${menu.name}</a</li>
+    `);
+    console.log(dropMenu);
+    $('.dropdown-menu').append(dropMenu);
+
+}
 
 //Edit a city
 function handleCityEdit(city) {
@@ -224,12 +247,10 @@ function renderOneCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
   </div>
   `);
-  $('#city-render').prepend(cityHtml);
+  $('#city-render').append(cityHtml);
 }
 
 
-
-//hi
 
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
 function handleAddCityClick(e) {

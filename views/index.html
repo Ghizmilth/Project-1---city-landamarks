@@ -31,9 +31,19 @@
   <nav class="container" id="main-buttons">
     <div class="row">
       <div class="modal-nav">
-        <button type="button" class="btn btn-city">City</button>
-          <button type="button" class="btn btn-add-city">Add New City</button>
-            <button type="button" class="btn btn-add-landmark">Add Landmark</button>
+
+        <div class="dropdown">
+          <button class="btn btn-city" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Wander in this city!
+    <span class="caret"></span>
+    </button>
+          <ul class="dropdown-menu" aria-labelledby="dLabel">
+            
+          </ul>
+        </div>
+
+        <button type="button" class="btn btn-add-city">Add New City</button>
+        <button type="button" class="btn btn-add-landmark">Add Landmark</button>
         <button type="button" class="btn btn-about">About</button>
       </div>
     </div>
@@ -44,94 +54,97 @@
 
     <div id="city-render"></div>
 
-<!--FORM to add city modal-->
+    <!--FORM to add city modal-->
 
-  <!-- begin cityModal: this is not visible until you call .modal() on it -->
-<div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add City</h4>
+    <!-- begin cityModal: this is not visible until you call .modal() on it -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add City</h4>
+          </div>
+          <div class="modal-body">
+
+            <fieldset class='form-horizontal'>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="cityName">City Name</label>
+                <div class="col-md-4">
+                  <input id="name" name="cityName" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="description">Description</label>
+                <div class="col-md-4">
+                  <input id="description" name="description" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="coordinates">Coordinates</label>
+                <div class="col-md-4">
+                  <input id="coordinates" name="coordinates" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="population">Population</label>
+                <div class="col-md-4">
+                  <input id="population" name="population" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="area">Area</label>
+                <div class="col-md-4">
+                  <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="elevation">Elevation</label>
+                <div class="col-md-4">
+                  <input id="elevation" name="elevation" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="time_zone">Time Zone</label>
+                <div class="col-md-4">
+                  <input id="time_zone" name="time_zone" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="imageURL">Image URL</label>
+                <div class="col-md-4">
+                  <input id="imageURL" name="imageURL" type="imageURL" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+
+            </fieldset>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveCity">Save changes</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
       </div>
-      <div class="modal-body">
-
-        <fieldset class='form-horizontal'>
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="cityName">City Name</label>
-            <div class="col-md-4">
-              <input id="name" name="cityName" type="text" placeholder="" class="form-control input-md" required="">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="description">Description</label>
-            <div class="col-md-4">
-              <input id="description" name="description" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="coordinates">Coordinates</label>
-            <div class="col-md-4">
-              <input id="coordinates" name="coordinates" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="population">Population</label>
-            <div class="col-md-4">
-              <input id="population" name="population" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="area">Area</label>
-            <div class="col-md-4">
-              <input id="area" name="area" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="elevation">Elevation</label>
-            <div class="col-md-4">
-              <input id="elevation" name="elevation" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="time_zone">Time Zone</label>
-            <div class="col-md-4">
-              <input id="time_zone" name="time_zone" type="text" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="imageURL">Image URL</label>
-            <div class="col-md-4">
-              <input id="imageURL" name="imageURL" type="imageURL" placeholder="" class="form-control input-md">
-            </div>
-          </div>
-
-        </fieldset>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveCity">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 
 
@@ -147,7 +160,7 @@
   </main>
 
 
-<!-- Begin of landmarks -->
+  <!-- Begin of landmarks -->
   <section class="container" id="landmarks">
     <div class="row">
       <article class="col-md-4 landmark-info">
@@ -160,58 +173,61 @@
 
   <!-- begin landmarkModal: this is not visible until you call .modal() on it -->
   <div class="modal fade" tabindex="-1" role="dialog" id="landmarkModal">
-  <div class="modal-dialog">
-  <div class="modal-content">
-  <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">Add Landmark</h4>
-  </div>
-  <div class="modal-body">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add Landmark</h4>
+        </div>
+        <div class="modal-body">
 
-  <fieldset class='form-horizontal'>
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="landmarkName">Landmark Name</label>
-      <div class="col-md-4">
-        <input id="landmarkName" name="landmarkName" type="text" placeholder="enter the landmark name" class="form-control input-md" required="">
+          <fieldset class='form-horizontal'>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="landmarkName">Landmark Name</label>
+              <div class="col-md-4">
+                <input id="landmarkName" name="landmarkName" type="text" placeholder="enter the landmark name" class="form-control input-md" required="">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="address">Address</label>
+              <div class="col-md-4">
+                <input id="address" name="address" type="text" placeholder="enter the landmark address" class="form-control input-md">
+              </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="landmarkImageURL">Image URL</label>
+              <div class="col-md-4">
+                <input id="landmarkImageURL" name="landmarkImageURL" type="text" placeholder="" class="form-control input-md">
+              </div>
+            </div>
+
+          </fieldset>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveLandmark">Save changes</button>
+        </div>
       </div>
+      <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="address">Address</label>
-      <div class="col-md-4">
-        <input id="address" name="address" type="text" placeholder="enter the landmark address" class="form-control input-md">
-      </div>
-    </div>
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="landmarkImageURL">Image URL</label>
-      <div class="col-md-4">
-        <input id="landmarkImageURL" name="landmarkImageURL" type="text" placeholder="" class="form-control input-md">
-      </div>
-    </div>
+  <!-- MODAL for EDIT city button -->
+  <div class="container" id="city-edit-modal">
+  </div>
 
-  </fieldset>
+
+  <!-- MODAL for add landmark button -->
+  <div class="container" id="landmark-edit-modal">
 
   </div>
-  <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary" id="saveLandmark">Save changes</button>
-  </div>
-  </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-<!-- MODAL for EDIT city button -->
-<div class="container" id="city-edit-modal">
-</div>
-
-
-<!-- MODAL for add landmark button -->
-<div class="container" id="landmark-edit-modal">
-
-</div>
 
 
 
