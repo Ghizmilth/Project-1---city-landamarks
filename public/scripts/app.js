@@ -28,11 +28,6 @@ $(document).ready(function() {
   //Open Add landmark modal
   $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
-  // $('.dropdown-menu').live('click', '.menu-list-link', function(){
-  //   var cityId = $(this).attr("data-city-id");
-  //   renderNewCity()
-  //   });
-
 });
 
 
@@ -165,6 +160,7 @@ function handleEditCityButton (edit) {
     edit.preventDefault();
     let cityId = $(this).parents('#editCityModal').data('city-id');
 
+    $('#editCityModal').modal('hide');
 
     let cityData = {
       name: $(".edited-city-name").val(),
@@ -195,13 +191,57 @@ function handleCityUpdateResponse(data) {
   let cityId = data._id;
   console.log(cityId);
     // close modal
-    $('editCityModal').modal('hide');
-    // update the correct album to show the new song
-    window.location = window.location;
-    renderOneCity(data);
+
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+
+    renderNewCityUpdated(data);
   };
 
+function renderNewCityUpdated(newCity) {
+  //confirm the id of the selected city
+  let cityId = newCity._id;
+  console.log('rendering city', cityId);
+//get the information of the selected city
+  $.get('/api/cities/' + cityId, function(city){
+    console.log('this is the nity to show now', city);
+//removes current city informtion from HTML
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+//create template for rendering new city info
+  var cityHtml = (`
+  <div class="row city" data-city-id="${city._id}">
 
+    <div class="col-sm-6">
+      <h2>${city.name}</h2>
+      <p>${city.description}</P>
+    </div>
+    <div class="row"
+      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+      <img src="${city.imageURL}"></img>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-12" id="city-facts">
+          <ul>
+            <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
+              <li id="cityPopulation">Population: ${city.population}</li>
+              <li id="cityArea">City Area: ${city.area}</li>
+              <li id="cityElevation">Elevation: ${city.elevation}</li>
+              <li id="cityTimeZone">Time-Zone: ${city.time_zone}</li>
+         </ul>
+       </div>
+      </div>
+    </div>
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
+  </div>
+  `);
+
+  $('#city-render').append(cityHtml);
+})
+}
 
 
 function renderOneCityOnly(city) {
@@ -240,18 +280,12 @@ function renderOneCityOnly(city) {
     $('#city-render').append(oneCity);
   }
 
-
-
-
-
-
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
   })
   };
-
 
 //Render One City on HTML
 function renderNewCity(city) {
