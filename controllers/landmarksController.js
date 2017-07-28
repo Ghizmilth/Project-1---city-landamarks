@@ -1,5 +1,15 @@
 var db = require('../models');
 
+// app.get('/api/cities/:cityId/landmarks', controllers.albumsSongs.index);
+function index(req, res) {
+  db.Landmarks.findById(req.params.cityId, function(err, foundAlbum) {
+    console.log('responding with landmarks:', foundCity.Landmarks);
+    res.json(foundCity.Landmarks);
+  });
+}
+
+
+
 
   // POST '/api/cities/:cityId/landmarks
   function create(req, res) {
