@@ -54,6 +54,7 @@ function create(req, res) {
   db.City.create(req.body, function(err, city) {
     if (err) { console.log('error', err); }
     console.log(city);
+
     res.json(city);
   });
 

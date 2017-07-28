@@ -13,21 +13,21 @@ $(document).ready(function() {
       populateDropDownCityMenu(data);
     }
   })
+  // click on an add city button
+  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
+
+  //click on save button in add city add form
+  $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
+
 
 //click on EDIT city button
   $('#city-render').on('click', '.edit-city', handleCityEdit);
   $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
 
-  // click on an add city button
-  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
-  //click on save button in add city add form
 
-  $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
-
-  //Open Add landmark modal
+  //Click on Add landmark modal
   $('#city-render').on('click','.btn-add-landmark',handleAddLandmarkClick);
-
   //save button - Landmark form
   $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
 
@@ -220,7 +220,7 @@ function renderNewCityUpdated(newCity) {
   console.log('rendering city', cityId);
 //get the information of the selected city
   $.get('/api/cities/' + cityId, function(city){
-    console.log('this is the nity to show now', city);
+    console.log('this is the city to show now', city);
 //removes current city informtion from HTML
     $("div").remove(".city");
     $("div").remove("#city-facts");
@@ -308,7 +308,7 @@ function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
   })
-  };
+};
 
 //Render One City on HTML
 function renderNewCity(city) {
@@ -400,7 +400,7 @@ function handleNewCitySubmit(e) {
   var $time_zoneField = $modal.find('#time_zone');
   var $imageURL = $modal.find('#imageURL');
 
-  var dataToPost= {
+  var cityDataToPost= {
     name: $cityNameField.val(),
     description: $descriptionField.val(),
     coordinates: $coordinatesField.val(),
@@ -410,13 +410,16 @@ function handleNewCitySubmit(e) {
     time_zone: $time_zoneField.val(),
     imageURL: $imageURL.val()
   };
-
-  //Post data to city list
   var cityPostToServer = '/api/cities/';
 
-  $.post(cityPostToServer, dataToPost, function (data){
+  $.ajax({
+    method: 'POST',
+    url: cityPostToServer,
+    data: cityDataToPost,
+    success: clearCityForm
+  });
+  function clearCityForm (data){
     console.log('received data from post to /cities:', data);
-
     //clear form
     $cityNameField.val('');
     $descriptionField.val('');
@@ -426,7 +429,7 @@ function handleNewCitySubmit(e) {
     $elevationField.val('');
     $time_zoneField.val('');
     $imageURL.val('');
-  });
+  };
 }
 
 
@@ -449,14 +452,18 @@ function handleNewLandmarkSubmit(e) {
 
   //Post data
   ///api/cities/:citiesId/landmarks
+  $.ajax({
+    method: 'POST',
+    url: '/api/cities/'+cityId+'/landmarks',
+    data: data,
+    onSuccess: landmarkPostToServer
+  })
 
-  $.post(landmarkPostToServer, dataToPost, function (data){
-
-
-    console.log();
+  function landmarkPostToServer(data){
+    console.log('this is the data posted to server:', data);
     //clear form
     $landmarkNameField.val(''),
     $addressField.val(''),
     $landmarkImageURL.val('')
-  });
+  };
 }
