@@ -61,7 +61,11 @@ function create(req, res) {
 
 // GET /api/cities/:citiesId
 function show(req, res) {
-  // find one city by id and send it back as JSON
+    db.City.findById(req.params.citiesId, function(err, foundCity) {
+      if(err) {console.log('cityControllers.show error', err); }
+      console.log('citiesControllers.show responding with', foundCity);
+      res.json(foundCity);
+    })// find one city by id and send it back as JSON
 }
 
 // DELETE /api/cities/:citiesId
@@ -72,7 +76,27 @@ function destroy(req, res) {
 // PUT or PATCH /api/cities/:citiesId
 function update(req, res) {
   // find one city by id, update it based on request body,
-  // and send it back as JSON
+  //console.log('updating with data', req.body);
+  db.City.findById(req.params.citiesId, function(err, foundCity) {
+    if(err) {console.log('cityControllers.update error', err);}
+
+    foundCity.name = req.body.name;
+    foundCity.description = req.body.description;
+    foundCity.coordinates = req.body.coordinates;
+    foundCity.population = req.body.population;
+    foundCity.area = req.body.area;
+    foundCity.elevation = req.body.elevation;
+    foundCity.time_zone = req.body.time_zone;
+    foundCity.imageURL = req.body.imageURL;
+
+    foundCity.save(function(err, savedCity) {
+      if(err) {console.log('saving updated city has failed'); }
+     res.json(savedCity);
+    })
+  })
+
+
+
 }
 
 
