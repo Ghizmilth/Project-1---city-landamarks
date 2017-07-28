@@ -26,23 +26,12 @@ $(document).ready(function() {
 
 <<<<<<< HEAD
 
-=======
-// click on an ADD city button
-  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
-//Add City Modal save
->>>>>>> 148b06ff4b7a4e79fec4bc818a4ef3b5293d5adf
 
   //Click on Add landmark modal
   $('#city-render').on('click','.btn-add-landmark',handleAddLandmarkClick);
   //save button - Landmark form
   $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
-
-<<<<<<< HEAD
-=======
-  //Open Add landmark modal
-  $('.landmarks-section').on('click','.btn-add-landmark', handleAddLandmarkClick);
->>>>>>> 148b06ff4b7a4e79fec4bc818a4ef3b5293d5adf
 
 
 });
@@ -453,15 +442,13 @@ function handleNewCitySubmit(e) {
   };
 }
 
-<<<<<<< HEAD
 
-=======
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log('add-landmark clicked!');
   $('#landmarkModal').modal();  // display the modal!
 };
->>>>>>> 148b06ff4b7a4e79fec4bc818a4ef3b5293d5adf
+
 
 
 // when the add landmark modal submit button is clicked:
