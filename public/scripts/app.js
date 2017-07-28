@@ -26,7 +26,7 @@ $(document).ready(function() {
   $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('#city-render').on('click','.btn-add-landmark',handleAddLandmarkClick);
+  $('#city-render').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
   //save button - Landmark form
   $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
@@ -38,7 +38,7 @@ $(document).ready(function() {
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log('Add Landmark button clicked');
-  $('#landmarkFormModal').modal('show');
+  $('#landmarkFormModal').modal();
 }
 
 
@@ -295,6 +295,23 @@ function renderOneCityOnly(city) {
       <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
       </div>
     </div>
+
+    <!--Begin of landmarks -->
+     <section class="container" id="landmarksSection">
+       <div class="row">
+
+         Testing
+
+       </div>
+       <div class="row">
+         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
+       </div>
+     </section>
+
+
+
+
+  </div>
     `);
 
     $('#city-render').append(oneCity);
@@ -475,8 +492,9 @@ var map;
    var service = new google.maps.places.PlacesService(map);
    service.nearbySearch({
      location: pyrmont,
-     radius: 500,
-     type: ['store']
+     //keyword: tourist
+     radius: 1000,
+     type: ['museum']
    }, callback);
  }
 
