@@ -194,6 +194,8 @@ function handleCityUpdateResponse(data) {
 
     $("div").remove(".city");
     $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
 
     renderNewCityUpdated(data);
   };
@@ -208,6 +210,9 @@ function renderNewCityUpdated(newCity) {
 //removes current city informtion from HTML
     $("div").remove(".city");
     $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
+
 //create template for rendering new city info
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -235,7 +240,9 @@ function renderNewCityUpdated(newCity) {
        </div>
       </div>
     </div>
-    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
+    <div class="edition-button">
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
+    </div>
   </div>
   `);
 
@@ -273,7 +280,9 @@ function renderOneCityOnly(city) {
          </div>
         </div>
       </div>
-      <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Edit City</button>
+      <div class="edition-button">
+      <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
+      </div>
     </div>
     `);
 
@@ -297,6 +306,8 @@ function renderNewCity(city) {
 
     $("div").remove(".city");
     $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
 
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -324,7 +335,9 @@ function renderNewCity(city) {
        </div>
       </div>
     </div>
-    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
+    <div class="edition-button">
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
+    </div>
   </div>
   `);
 
