@@ -27,7 +27,7 @@ app.get('/', function home(req,res) {
 app.get('/api', controllers.api.index);
 app.get('/api/cities', controllers.cities.index);
 app.post('/api/cities', controllers.cities.create);
-
+app.post('/api/cities/:cityId/landmarks', controllers.landmark.create);
 //LISTENING
 
 app.listen(process.env.PORT || 3000, function(){

@@ -1,4 +1,4 @@
-let cityList = 0;
+//let cityList = 0;
 
 $(document).ready(function() {
   console.log('JS is loaded');
@@ -16,12 +16,15 @@ $(document).ready(function() {
   // click on an add city button
   $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
-  //click on save button in add form
+  //click on save button in add city add form
 
   $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
+  $('.modal-footer').on('click','.btn-add-landmark', handleAddLandmarkClick);
+
+  //click on save button in add landmark form
+  $('#landmarkModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
 
 });
 
@@ -162,6 +165,7 @@ function renderOneCity(city) {
       </div>
     </div>
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
+      <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
   </div>
   `);
   $('#city-render').prepend(cityHtml);
@@ -222,6 +226,35 @@ function handleNewCitySubmit(e) {
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
-  console.log('add-city clicked!');
+  console.log('add-landmark clicked!');
   $('#landmarkModal').modal();  // display the modal!
+}
+
+
+// when the add landmark modal submit button is clicked:
+function handleNewLandmarkSubmit(e) {
+  e.preventDefault();
+  var $modal = $('#landmarkModal');
+  var $landmarkNameField = $modal.find('#landmarkName');
+  var $addressField = $modal.find('#address');
+  var $landmarkImageURL = $modal.find('#landmarkImageURL');
+
+  var dataToPost= {
+    name: $landmarkNameField.val(),
+    adress: $addressField.val(),
+    imageURL: $landmarkImageURL.val()
+  };
+
+  //Post data
+  var landmarkPostToServer = `/api/cities/${city._id}/landmarks`;
+
+  $.post(landmarkPostToServer, dataToPost, function (data){
+    console.log();
+
+    //clear form
+    $landmarkNameField.val(''),
+    $addressField.val(''),
+    $landmarkImageURL.val('')
+
+  });
 }
