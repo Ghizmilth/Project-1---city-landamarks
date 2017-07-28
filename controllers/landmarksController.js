@@ -19,8 +19,10 @@ function index(req, res) {
       console.log('body', req.body);
       var newLandmark = new db.Landmark(req.body);  // dangerous, in a real app we'd validate the incoming data
       newLandmark.save(function(err, savedLandmark) {
-        console.log('newLandmark created: ', newLandmark);
-        res.json(newLandmark);  // responding with just the landmark
+        console.log('newLandmark created: ', savedLandmark);
+        //update the city to contain the landmarks.
+        //once it's updated save to database
+        res.json(savedLandmark);  // responding with just the landmark
       });
     });
 }
