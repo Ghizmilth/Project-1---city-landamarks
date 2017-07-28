@@ -206,6 +206,7 @@ function handleCityUpdateResponse(data) {
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
     $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
 
     renderNewCityUpdated(data);
   };
@@ -222,6 +223,7 @@ function renderNewCityUpdated(newCity) {
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
     $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
 
 //create template for rendering new city info
   var cityHtml = (`
@@ -336,6 +338,8 @@ function renderNewCity(city) {
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
     $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
+
 
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -442,31 +446,31 @@ function handleNewCitySubmit(e) {
   });
 }
 
-
-
-
 // when the add landmark modal submit button is clicked:
 function handleNewLandmarkSubmit(e) {
   e.preventDefault();
   console.log('Landmark SUBMIT clicked');
-  var $modal = $('landmarkFormModal');
+
+  var $modal = $('#landmarkFormModal');
   var $landmarkNameField = $modal.find('#landmarkName');
   var $addressField = $modal.find('#address');
   var $landmarkImageURL = $modal.find('#landmarkImageURL');
 
-  var dataToPost= {
+  var landmarktoPost = {
     name: $landmarkNameField.val(),
-    adress: $addressField.val(),
+    address: $addressField.val(),
     imageURL: $landmarkImageURL.val()
-  };
-
-  //Post data
-  ///api/cities/:citiesId/landmarks
-
-  $.post(landmarkPostToServer, dataToPost, function (data){
+    };
 
 
-    console.log();
+  var landmarkPostToServer='/api/cities/:citiesId/landmarks';
+
+
+
+  $.post(landmarkPostToServer, landmarktoPost, function (data){
+
+
+    console.log(landmarktoPost);
     //clear form
     $landmarkNameField.val(''),
     $addressField.val(''),
