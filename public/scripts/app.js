@@ -8,7 +8,10 @@ $(document).ready(function() {
   $.ajax({
     method: 'GET',
     url: '/api/cities',
-    success: renderCities
+    success: function (data) {
+      renderOneCityOnly(data);
+      populateDropDownCityMenu(data);
+    }
   })
 
 //click on EDIT city button
@@ -38,6 +41,24 @@ function handleAddLandmarkClick(e) {
   $('#landmarkFormModal').modal('show');
 }
 
+
+//Populate the dropdown menu for selecting cityList
+function populateDropDownCityMenu(menu) {
+    menu.forEach(function(menu) {
+    renderDropMenu(menu);
+})
+  console.log(menu);
+};
+
+
+//Render the drop menu with city info
+function renderDropMenu(menu) {
+  console.log('collecting menu list');
+  let dropMenu = (`
+    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}">${menu.name}</a</li>
+    `);
+    $('.dropdown-menu').append(dropMenu);
+}
 
 //Edit a city
 function handleCityEdit(city) {
@@ -135,8 +156,6 @@ function handleCityEdit(city) {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal --> `)
 
-
-
 //adds the modal into the HTML after loading the city info
  $('#city-edit-modal').prepend(cityToEdit);
 
@@ -155,6 +174,7 @@ function handleEditCityButton (edit) {
     edit.preventDefault();
     let cityId = $(this).parents('#editCityModal').data('city-id');
 
+    $('#editCityModal').modal('hide');
 
     let cityData = {
       name: $(".edited-city-name").val(),
@@ -184,30 +204,124 @@ function handleCityUpdateResponse(data) {
 
   let cityId = data._id;
   console.log(cityId);
+    // close modal
 
-//  $('.editCityNow[data-city-id="'+ cityId'"]').remove();
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
 
-  // close modal
-    $('editCityModal').modal('hide');
-    // update the correct album to show the new song
-
-    window.location = window.location;
-
-      renderOneCity(data);
+    renderNewCityUpdated(data);
   };
 
+function renderNewCityUpdated(newCity) {
+  //confirm the id of the selected city
+  let cityId = newCity._id;
+  console.log('rendering city', cityId);
+//get the information of the selected city
+  $.get('/api/cities/' + cityId, function(city){
+    console.log('this is the nity to show now', city);
+//removes current city informtion from HTML
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
 
+//create template for rendering new city info
+  var cityHtml = (`
+  <div class="row city" data-city-id="${city._id}">
+
+    <div class="col-sm-6">
+      <h2>${city.name}</h2>
+      <p>${city.description}</P>
+    </div>
+    <div class="row"
+      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+      <img src="${city.imageURL}"></img>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-12" id="city-facts">
+          <ul>
+            <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
+              <li id="cityPopulation">Population: ${city.population}</li>
+              <li id="cityArea">City Area: ${city.area}</li>
+              <li id="cityElevation">Elevation: ${city.elevation}</li>
+              <li id="cityTimeZone">Time-Zone: ${city.time_zone}</li>
+         </ul>
+       </div>
+      </div>
+    </div>
+    <div class="edition-button">
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
+    </div>
+  </div>
+  `);
+
+  $('#city-render').append(cityHtml);
+})
+}
+
+
+function renderOneCityOnly(city) {
+    console.log('rendering city', city);
+
+    var oneCity = (`
+    <div class="row city" data-city-id="${city[0]._id}">
+
+      <div class="col-sm-6">
+        <h2>${city[0].name}</h2>
+        <p>${city[0].description}</P>
+      </div>
+      <div class="row"
+        <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+        <img src="${city[0].imageURL}"></img>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12" id="city-facts">
+            <ul>
+              <li id="coordinatesInfo">Coordinates: ${city[0].coordinates}</li>
+                <li id="cityPopulation">Population: ${city[0].population}</li>
+                <li id="cityArea">City Area: ${city[0].area}</li>
+                <li id="cityElevation">Elevation: ${city[0].elevation}</li>
+                <li id="cityTimeZone">Time-Zone: ${city[0].time_zone}</li>
+           </ul>
+         </div>
+        </div>
+      </div>
+      <div class="edition-button">
+      <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
+      </div>
+    </div>
+    `);
+
+    $('#city-render').append(oneCity);
+  }
 
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
-  });
-}
+  })
+  };
 
 //Render One City on HTML
-function renderOneCity(city) {
-  console.log('rendering city', city);
+function renderNewCity(city) {
+  let cityId = $(city).data('id-city');
+  console.log('rendering city', cityId);
+
+  $.get('/api/cities/' + cityId, function(city){
+    console.log('this is the nity to show now', city);
+
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+    $("div").remove(".edition-button");
+    $("div").remove(".modal-footer");
 
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -235,6 +349,11 @@ function renderOneCity(city) {
        </div>
       </div>
     </div>
+
+    <div class="edition-button">
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
+    </div>
+
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
 
     <!--Begin of landmarks -->
@@ -251,12 +370,13 @@ function renderOneCity(city) {
 
 
 
+
   </div>
   `);
-  $('#city-render').prepend(cityHtml);
+
+  $('#city-render').append(cityHtml);
+})
 }
-
-
 
 
 
