@@ -15,7 +15,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-  <!--Application scripts -->
+  <!--Aplication scripts -->
   <script src="/scripts/app.js"></script>
 
 </head>
@@ -32,24 +32,18 @@
     <div class="row">
       <div class="modal-nav">
 
-
         <div class="dropdown">
           <button class="btn btn-city" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Wander in this city!
     <span class="caret"></span>
     </button>
           <ul class="dropdown-menu" aria-labelledby="dLabel">
-            
+
           </ul>
         </div>
 
         <button type="button" class="btn btn-add-city">Add New City</button>
         <button type="button" class="btn btn-add-landmark">Add Landmark</button>
-
-        <button type="button" class="btn btn-city">City</button>
-          <button type="button" class="btn btn-add-city">Add New City</button>
-
-
         <button type="button" class="btn btn-about">About</button>
       </div>
     </div>
@@ -58,29 +52,18 @@
   <!-- Begin City info rendering -->
   <main class="container">
 
-    <div id="city-render"></div>
+    <div id="city-render">
+    </div>
 
+    <!--FORM to add city modal-->
 
-<!--FORM to add CITY MODAL-->
-
-  <!-- this is not visible until you call .modal() on it -->
-<div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add City</h4>
-      </div>
-      <div class="modal-body">
-
-        <fieldset class='form-horizontal'>
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="cityName">City Name</label>
-            <div class="col-md-4">
-              <input id="cityName" name="cityName" type="text" placeholder="" class="form-control input-md" required="">
-            </div>
-
+    <!-- begin cityModal: this is not visible until you call .modal() on it -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add City</h4>
           </div>
           <div class="modal-body">
 
@@ -171,30 +154,26 @@
 
 
 
-
+<!-- This is a placeholder to render the city in it -->
     <div id="city-render">
     </div>
 
+
+
   </main>
 
-
-
   <!-- Begin of landmarks -->
-
   <section class="container" id="landmarks">
     <div class="row">
-      <div id="landmarks-render">
-        Testing
-      </div>
-    </div>
-    <div class="row">
-      <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
+      <article class="col-md-4 landmark-info">
+      </article>
+      <article class="col-md-3 landmark-img">
+      </article>
     </div>
   </section>
 
 
   <!-- begin landmarkModal: this is not visible until you call .modal() on it -->
-
   <div class="modal fade" tabindex="-1" role="dialog" id="landmarkModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -212,25 +191,6 @@
                 <input id="landmarkName" name="landmarkName" type="text" placeholder="enter the landmark name" class="form-control input-md" required="">
               </div>
             </div>
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="landmarkFormModal">
-  <div class="modal-dialog">
-  <div class="modal-content">
-  <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">Add Landmark</h4>
-  </div>
-  <div class="modal-body">
-
-  <fieldset class='form-horizontal'>
-    <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="landmarkName">Landmark Name</label>
-      <div class="col-md-4">
-        <input id="landmarkName" name="landmarkName" type="text" placeholder="enter the landmark name" class="form-control input-md" required="">
-      </div>
-    </div>
-
 
             <!-- Text input-->
             <div class="form-group">
@@ -261,20 +221,15 @@
   </div>
   <!-- /.modal -->
 
-  <!-- MODAL for EDIT city button -->
+  <!-- MODAL for UPDATE city button -->
   <div class="container" id="city-edit-modal">
   </div>
-
 
 
   <!-- MODAL for add landmark button -->
   <div class="container" id="landmark-edit-modal">
 
   </div>
-
-<!-- MODAL for add landmark button -->
-
-
 
 
 

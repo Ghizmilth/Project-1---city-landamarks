@@ -160,7 +160,7 @@ function handleCityEdit(city) {
  $('#city-edit-modal').prepend(cityToEdit);
 
 //calls modal to show up
- $('#editCityModal').modal();
+ $('.editCityNow').modal();
 
 
 
@@ -174,7 +174,7 @@ function handleEditCityButton (edit) {
     edit.preventDefault();
     let cityId = $(this).parents('#editCityModal').data('city-id');
 
-    $('#editCityModal').modal('hide');
+    $('.editCityNow').modal('hide');
 
     let cityData = {
       name: $(".edited-city-name").val(),
@@ -354,13 +354,12 @@ function renderNewCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
 
-    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
 
     <!--Begin of landmarks -->
      <section class="container" id="landmarksSection">
        <div class="row">
 
-           Testing
+         Testing
 
        </div>
        <div class="row">
