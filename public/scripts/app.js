@@ -1,4 +1,4 @@
-let cityList = 0;
+//let cityList = 0;
 
 
 $(document).ready(function() {
@@ -21,14 +21,25 @@ $(document).ready(function() {
   // click on an add city button
   $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
 
-  //click on save button in add form
+  //click on save button in add city add form
 
   $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
+  $('#city-render').on('click','.btn-add-landmark',handleAddLandmarkClick);
+
+  //save button - Landmark form
+  $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
+
+
 
 });
+
+// when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
+function handleAddLandmarkClick(e) {
+  console.log('Add Landmark button clicked');
+  $('#landmarkFormModal').modal('show');
+}
 
 
 //Populate the dropdown menu for selecting cityList
@@ -150,6 +161,9 @@ function handleCityEdit(city) {
 
 //calls modal to show up
  $('#editCityModal').modal();
+
+
+
 
 });
 };
@@ -335,15 +349,35 @@ function renderNewCity(city) {
        </div>
       </div>
     </div>
+
     <div class="edition-button">
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
+
+    <button type="button" class="btn edit-city" data-city-id="${city._id}">Edit City</button>
+
+    <!--Begin of landmarks -->
+     <section class="container" id="landmarksSection">
+       <div class="row">
+
+           Testing
+
+       </div>
+       <div class="row">
+         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
+       </div>
+     </section>
+
+
+
+
   </div>
   `);
 
   $('#city-render').append(cityHtml);
 })
 }
+
 
 
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
@@ -395,8 +429,34 @@ function handleNewCitySubmit(e) {
   });
 }
 
-// when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
-function handleAddLandmarkClick(e) {
-  console.log('add-city clicked!');
-  $('#landmarkModal').modal();  // display the modal!
+
+
+
+// when the add landmark modal submit button is clicked:
+function handleNewLandmarkSubmit(e) {
+  e.preventDefault();
+  console.log('Landmark SUBMIT clicked');
+  var $modal = $('landmarkFormModal');
+  var $landmarkNameField = $modal.find('#landmarkName');
+  var $addressField = $modal.find('#address');
+  var $landmarkImageURL = $modal.find('#landmarkImageURL');
+
+  var dataToPost= {
+    name: $landmarkNameField.val(),
+    adress: $addressField.val(),
+    imageURL: $landmarkImageURL.val()
+  };
+
+  //Post data
+  ///api/cities/:citiesId/landmarks
+
+  $.post(landmarkPostToServer, dataToPost, function (data){
+
+
+    console.log();
+    //clear form
+    $landmarkNameField.val(''),
+    $addressField.val(''),
+    $landmarkImageURL.val('')
+  });
 }

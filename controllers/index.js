@@ -1,4 +1,5 @@
 module.exports = {
   api: require('./apiController'),
-  cities: require('./citiesController')
+  cities: require('./citiesController'),
+  landmark: require('./landmarksController')
 }

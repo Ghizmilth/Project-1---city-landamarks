@@ -1,19 +1,29 @@
 var db = require('../models');
 
+// app.get('/api/cities/:cityId/landmarks', controllers.albumsSongs.index);
+function index(req, res) {
+  db.Landmarks.findById(req.params.cityId, function(err, foundAlbum) {
+    console.log('responding with landmarks:', foundCity.Landmarks);
+    res.json(foundCity.Landmarks);
+  });
+}
+
+
+
 
   // POST '/api/cities/:cityId/landmarks
   function create(req, res) {
+
+
     db.City.findById(req.params.cityId, function(err, foundCity) {
-      console.log(req.body);
+      console.log('body', req.body);
       var newLandmark = new db.Landmark(req.body);  // dangerous, in a real app we'd validate the incoming data
-      foundCity.landmarks.push(newLandmark);
-      foundCity.save(function(err, savedCity) {
+      newLandmark.save(function(err, savedLandmark) {
         console.log('newLandmark created: ', newLandmark);
-        res.json(newLandmark);  // responding with just the song, some APIs may respond with the parent object (Album in this case)
+        res.json(newLandmark);  // responding with just the landmark
       });
     });
-  }
-
+}
 
   module.exports = {
     create: create
