@@ -28,7 +28,10 @@ $(document).ready(function() {
   //Open Add landmark modal
   $('.modal-nav').on('click','.btn-add-landmark', handleAddLandmarkClick);
 
-  //$('#myDropdown').on('show.bs.dropdown', populateDropDownCityMenu;
+  // $('.dropdown-menu').live('click', '.menu-list-link', function(){
+  //   var cityId = $(this).attr("data-city-id");
+  //   renderNewCity()
+  //   });
 
 });
 
@@ -41,10 +44,12 @@ function populateDropDownCityMenu(menu) {
   console.log(menu);
 };
 
+
+//Render the drop menu with city info
 function renderDropMenu(menu) {
   console.log('collecting menu list');
   let dropMenu = (`
-    <li> <a href='#' class="menulist" data-id-city="${menu._id}">${menu.name}</a</li>
+    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}">${menu.name}</a</li>
     `);
     $('.dropdown-menu').append(dropMenu);
 }
@@ -189,16 +194,11 @@ function handleCityUpdateResponse(data) {
 
   let cityId = data._id;
   console.log(cityId);
-
-//  $('.editCityNow[data-city-id="'+ cityId'"]').remove();
-
-  // close modal
+    // close modal
     $('editCityModal').modal('hide');
     // update the correct album to show the new song
-
     window.location = window.location;
-
-      renderOneCity(data);
+    renderOneCity(data);
   };
 
 
@@ -206,15 +206,6 @@ function handleCityUpdateResponse(data) {
 
 function renderOneCityOnly(city) {
     console.log('rendering city', city);
-  //  city.get[0](function () {
-
-    var $oneCity = city[0]._id,
-          oneDescription = city[0].name;
-
-
-    console.log(oneDescription);
-
-
 
     var oneCity = (`
     <div class="row city" data-city-id="${city[0]._id}">
@@ -263,8 +254,16 @@ function renderCities(cities) {
 
 
 //Render One City on HTML
-function renderOneCity(city) {
-  console.log('rendering city', city);
+function renderNewCity(city) {
+  let cityId = $(city).data('id-city');
+  console.log('rendering city', cityId);
+
+  $.get('/api/cities/' + cityId, function(city){
+    console.log('this is the nity to show now', city);
+
+    $("div").remove(".city");
+    $("div").remove("#city-facts");
+
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
@@ -296,8 +295,8 @@ function renderOneCity(city) {
   `);
 
   $('#city-render').append(cityHtml);
+})
 }
-
 
 
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
