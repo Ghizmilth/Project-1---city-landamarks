@@ -1,6 +1,6 @@
 var db = require('../models');
 
-// app.get('/api/cities/:cityId/landmarks', controllers.albumsSongs.index);
+// app.get('/api/cities/:cityId/landmarks', controllers.landmark.index);
 function index(req, res) {
   db.Landmarks.findById(req.params.cityId, function(err, foundAlbum) {
     console.log('responding with landmarks:', foundCity.Landmarks);
