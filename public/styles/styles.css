@@ -1,3 +1,29 @@
+
+
+
+h1#header-title{
+  font-family: 'Oswald', sans-serif;
+  font-size: 48pt;
+  text-align: center;
+  color: #81E4E4;
+  text-transform: uppercase;
+
+}
+
+.tagline{
+  text-align: center;
+
+}
+.container-title{
+  margin: 50px 0 0 0;
+}
+
+#main-buttons{
+  background-color: #81E4E4;
+  padding: 10px 10px 10px 50px;
+  border-radius: 25px;
+}
+.modal-nav{display: inline;}
 /* Always set the map height explicitly to define the size of the div
   * element that contains the map. */
  #map {
@@ -10,7 +36,10 @@
    margin: 0;
    padding: 0;
  }
-
+img {
+  border: 1px solid blue;
+  width: 60%;
+}
  #description {
          font-family: Roboto;
          font-size: 15px;

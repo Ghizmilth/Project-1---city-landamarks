@@ -40,7 +40,12 @@ $(document).ready(function() {
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
-  console.log('Add Landmark button clicked');
+  console.log('add landmark clicked!');
+  var id = $(this).parents('.row-city').data('city-id');
+
+  var $cityRow = $(this).closest('.row-city');
+  var id = $cityRow.data('city-id');
+  console.log('id', id);
   $('#landmarkFormModal').modal();
 }
 
@@ -210,6 +215,8 @@ function handleCityUpdateResponse(data) {
     $("div").remove(".edition-button");
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
+    $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
 
 
     renderNewCityUpdated(data);
@@ -228,6 +235,10 @@ function renderNewCityUpdated(newCity) {
     $("div").remove(".edition-button");
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
+    $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
+
+
 //create template for rendering new city info
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -347,8 +358,19 @@ function renderNewCity(city) {
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
+
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
+
+
+    $("div").remove(".modal-footer");
+    $("div").remove("#landmarksSection");
+
+
+    function renderLandmark(landmark){
+      return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
+      <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
+    }
 
 
   var cityHtml = (`
@@ -388,7 +410,7 @@ function renderNewCity(city) {
      <section class="container" id="landmarksSection">
        <div class="row" id="btn-clear-landmark">
 
-         Testing
+         <p>${city.landmarksHtml}</p>
 
        </div>
        <div class="row" id="clear-this-also">
@@ -458,34 +480,50 @@ function handleNewCitySubmit(e) {
   });
 }
 
-
-
-
-// when the add landmark modal submit button is clicked:
+// when the landmark modal submit button is clicked:
 function handleNewLandmarkSubmit(e) {
   e.preventDefault();
   console.log('Landmark SUBMIT clicked');
-  var $modal = $('landmarkFormModal');
+
+  var $modal = $('#landmarkFormModal');
   var $landmarkNameField = $modal.find('#landmarkName');
   var $addressField = $modal.find('#address');
   var $landmarkImageURL = $modal.find('#landmarkImageURL');
 
-  var dataToPost= {
+  //get data from form fields
+  var landmarktoPost = {
     name: $landmarkNameField.val(),
-    adress: $addressField.val(),
+    address: $addressField.val(),
     imageURL: $landmarkImageURL.val()
-  };
+    };
 
-  //Post data
-  ///api/cities/:citiesId/landmarks
+     var id= $(this).closest('city-render').data('city-id');
 
-  $.post(landmarkPostToServer, dataToPost, function (data){
+    console.log (landmarktoPost);
 
 
-    console.log();
+  var landmarkPostToServer = '/api/cities' + id + '/landmarks';
+
+  $.post(landmarkPostToServer, landmarktoPost, function (data){
+    console.log ('recevied data from post to /landmarks:', data);
+
     //clear form
     $landmarkNameField.val(''),
     $addressField.val(''),
-    $landmarkImageURL.val('')
+    $landmarkImageURL.val('');
+
+    //close modal
+    $modal.modal('hide');
+
+    //update correct city to show new landmark
+    $.get('/api/cities/' + cityId, function (data) {
+      //remove current instance of city fr. the page.
+      $('[data-city-id=' + cityId + ']').remove();
+
+      //re-render city with new city data (and new landmark)
+      renderNewCity(data);
+    })
+
+
   });
 }

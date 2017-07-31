@@ -68,10 +68,6 @@ function show(req, res) {
     })// find one city by id and send it back as JSON
 }
 
-// DELETE /api/cities/:citiesId
-function destroy(req, res) {
-  // find one city by id, delete it, and send it back as JSON
-}
 
 // PUT or PATCH /api/cities/:citiesId
 function update(req, res) {
@@ -105,6 +101,6 @@ module.exports = {
   index: index,
   create: create,
   show: show,
-  destroy: destroy,
+//  destroy: destroy,
   update: update
 };

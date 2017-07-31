@@ -1,8 +1,9 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
-// let Landmark = require
-let CitiesSchema = new Schema({
+var Landmark = require('./landmarks');
+
+let CitySchema = new Schema({
   name: String,
   description: String,
   coordinates: String,
@@ -11,9 +12,11 @@ let CitiesSchema = new Schema({
   elevation: String,
   latLng: {"lat": Number, "lng": Number},
   time_zone: String,
-  imageURL: String
+  imageURL: String,
+  landmarks: [Landmark.schema]
 })
 
-let City = mongoose.model('City', CitiesSchema);
+let City = mongoose.model('City', CitySchema);
+
 
 module.exports = City;
