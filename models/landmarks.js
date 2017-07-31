@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 let LandmarkSchema = new Schema({
   name: String,
   address: String,
+  comments: String,
   imageURL: String
 })
 

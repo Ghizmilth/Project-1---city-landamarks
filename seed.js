@@ -46,6 +46,7 @@ var landmarkList = [];
   landmarkList.push({
     name: 'Golden Gate Bridge',
     address: '123 Main Street',
+    comments: 'It is an amzing experience to cross it on a bike. Hidaner',
     imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
 });
 

@@ -209,7 +209,7 @@ function handleCityUpdateResponse(data) {
   $("div").remove(".edition-button");
   $("div").remove("#clear-this-also");
   $("div").remove("#btn-clear-landmark");
-  //    $("div").remove(".modal-footer");
+  $("div").remove(".city-info");
   $("div").remove("#landmarksSection");
 
 
@@ -229,7 +229,7 @@ function renderNewCityUpdated(newCity) {
     $("div").remove(".edition-button");
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
-    //  $("div").remove(".modal-footer");
+    $("div").remove(".city-info");
     $("div").remove("#landmarksSection");
 
 
@@ -247,7 +247,7 @@ function renderNewCityUpdated(newCity) {
       </div>
     </div>
 
-    <div class="modal-footer">
+    <div class="city-info">
       <div class="row">
         <div class="col-md-12" id="city-facts">
           <ul>
@@ -271,6 +271,9 @@ function renderNewCityUpdated(newCity) {
 
          <p>Name: ${city.landmarks[0].name}</p>
           <p>Address: ${city.landmarks[0].address}</p>
+          <div id="comments-to-add">
+          <p>Comments: ${city.landmarks[0].comments}</p>
+          </div>
            <img src= ${city.landmarks[0].imageURL} height="200px" width="200px"></img>
 
        </div>
@@ -304,7 +307,7 @@ function renderOneCityOnly(city) {
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="city-info">
         <div class="row">
           <div class="col-md-12" id="city-facts">
             <ul>
@@ -329,6 +332,9 @@ function renderOneCityOnly(city) {
 
          <p>Name: ${city[0].landmarks[0].name}</p>
           <p>Address: ${city[0].landmarks[0].address}</p>
+          <div id="comments-to-add">
+          <p>Comments: ${city[0].landmarks[0].comments}</p>
+          </div>
            <img src= ${city[0].landmarks[0].imageURL} height="200px" width="200px"></img>
 
        </div>
@@ -372,12 +378,9 @@ function renderNewCity(city) {
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
-
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
-
-
-    //    $("div").remove(".modal-footer");
+    $("div").remove(".city-info");
     $("div").remove("#landmarksSection");
 
 
@@ -400,7 +403,7 @@ function renderNewCity(city) {
       </div>
     </div>
 
-    <div class="modal-footer">
+    <div class="city-info">
       <div class="row">
         <div class="col-md-12" id="city-facts">
           <ul>
@@ -426,6 +429,9 @@ function renderNewCity(city) {
 
          <p>Name: ${city.landmarks[0].name}</p>
           <p>Address: ${city.landmarks[0].address}</p>
+          <div id="comments-to-add">
+          <p>Comments: ${city.landmarks[0].comments}</p>
+          </div>
            <img src= ${city.landmarks[0].imageURL} height="200px" width="200px"></img>
 
        </div>
@@ -504,12 +510,14 @@ function handleNewLandmarkSubmit(e) {
   var $modal = $('#landmarkFormModal');
   var $landmarkNameField = $modal.find('#landmarkName');
   var $addressField = $modal.find('#address');
+  var $commentField = $modal.find('#comments');
   var $landmarkImageURL = $modal.find('#landmarkImageURL');
 
   //get data from form fields
   var landmarktoPost = {
     name: $landmarkNameField.val(),
     address: $addressField.val(),
+    comments: $commentsField.val(),
     imageURL: $landmarkImageURL.val()
   };
 
