@@ -10,6 +10,7 @@ let CitySchema = new Schema({
   population: String,
   area: String,
   elevation: String,
+  latLng: {"lat": Number, "lng": Number},
   time_zone: String,
   imageURL: String,
   landmarks: [Landmark.schema]

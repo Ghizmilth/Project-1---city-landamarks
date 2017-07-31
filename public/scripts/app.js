@@ -1,4 +1,7 @@
 //let cityList = 0;
+var map;
+var infowindow;
+var placeLocation;
 
 
 $(document).ready(function() {
@@ -60,7 +63,7 @@ function populateDropDownCityMenu(menu) {
 function renderDropMenu(menu) {
   console.log('collecting menu list');
   let dropMenu = (`
-    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}">${menu.name}</a</li>
+    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}" data-city-latlng="${menu.latLng}">${menu.name}</a</li>
     `);
     $('.dropdown-menu').append(dropMenu);
 }
@@ -210,8 +213,11 @@ function handleCityUpdateResponse(data) {
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
+    $("div").remove("#clear-this-also");
+    $("div").remove("#btn-clear-landmark");
     $("div").remove(".modal-footer");
     $("div").remove("#landmarksSection");
+
 
     renderNewCityUpdated(data);
   };
@@ -227,8 +233,11 @@ function renderNewCityUpdated(newCity) {
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
+    $("div").remove("#clear-this-also");
+    $("div").remove("#btn-clear-landmark");
     $("div").remove(".modal-footer");
     $("div").remove("#landmarksSection");
+
 
 //create template for rendering new city info
   var cityHtml = (`
@@ -304,16 +313,18 @@ function renderOneCityOnly(city) {
     </div>
 
     <!--Begin of landmarks -->
+    <div id="clear-landmark"
      <section class="container" id="landmarksSection">
-       <div class="row">
+       <div class="row" id="btn-clear-landmark">
 
          Testing
 
        </div>
-       <div class="row">
+       <div class="row" id="clear-this-also">
          <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
        </div>
      </section>
+     </div>
 
 
 
@@ -336,12 +347,22 @@ function renderNewCity(city) {
   let cityId = $(city).data('id-city');
   console.log('rendering city', cityId);
 
+  // var placeLocation = lat;
+  // console.log(placeLocation);
+
+
+
   $.get('/api/cities/' + cityId, function(city){
     console.log('this is the nity to show now', city);
 
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
+
+    $("div").remove("#clear-this-also");
+    $("div").remove("#btn-clear-landmark");
+
+
     $("div").remove(".modal-footer");
     $("div").remove("#landmarksSection");
 
@@ -350,6 +371,7 @@ function renderNewCity(city) {
       return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
       <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
     }
+
 
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
@@ -384,16 +406,18 @@ function renderNewCity(city) {
 
 
     <!--Begin of landmarks -->
+    <div id="clear-landmark">
      <section class="container" id="landmarksSection">
-       <div class="row">
+       <div class="row" id="btn-clear-landmark">
 
          <p>${city.landmarksHtml}</p>
 
        </div>
-       <div class="row">
+       <div class="row" id="clear-this-also">
          <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
        </div>
      </section>
+     </div>
 
 
 
@@ -503,48 +527,3 @@ function handleNewLandmarkSubmit(e) {
 
   });
 }
-
-
-
-var map;
- var infowindow;
-
-
- function initMap() {
-   var pyrmont = {lat: 37.78, lng: -122.44};
-
-   map = new google.maps.Map(document.getElementById('map'), {
-     center: pyrmont,
-     zoom: 15
-   });
-
-   infowindow = new google.maps.InfoWindow();
-   var service = new google.maps.places.PlacesService(map);
-   service.nearbySearch({
-     location: pyrmont,
-     //keyword: tourist
-     radius: 1000,
-     type: ['museum']
-   }, callback);
- }
-
- function callback(results, status) {
-   if (status === google.maps.places.PlacesServiceStatus.OK) {
-     for (var i = 0; i < results.length; i++) {
-       createMarker(results[i]);
-     }
-   }
- }
-
- function createMarker(place) {
-   var placeLoc = place.geometry.location;
-   var marker = new google.maps.Marker({
-     map: map,
-     position: place.geometry.location
-   });
-
-   google.maps.event.addListener(marker, 'click', function() {
-     infowindow.setContent(place.name);
-     infowindow.open(map, this);
-   });
- }
