@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="styles/styles.css">
 
   <!--Vendor scripts -->
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -20,10 +23,12 @@
 </head>
 
 <body>
+  <div id = "whole-container">
 
-  <div class="container">
-    <h1>Wander Around!!</h1>
-    <p>Don't suffer of FOMO anymore. Know the city you're visiting!</p>
+
+  <div class="container-title">
+    <h1 id="header-title">Wander Around!!</h1>
+    <p class="tagline">Don't suffer of FOMO anymore. Know the city you're visiting!</p>
   </div>
 
   <!-- Navigation bar -->
@@ -31,19 +36,22 @@
     <div class="row">
       <div class="modal-nav">
 
-        <div class="dropdown">
-          <button class="btn btn-city" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Wander in this city!
-    <span class="caret"></span>
-    </button>
-          <ul class="dropdown-menu" aria-labelledby="dLabel">
+            <button type="button" class="btn btn-add-city">Add New City</button>
 
-          </ul>
-        </div>
+            <div class="dropdown">
+            <button class="btn btn-city" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Wander in this city!<span class="caret"></span>
+            </button>
+              <ul class="dropdown-menu" aria-labelledby="dLabel">
+              </ul>
+            </div>
+          </li>
 
-        <button type="button" class="btn btn-add-city">Add New City</button>
+              <button type="button" class="btn btn-about">About</button>
 
-        <button type="button" class="btn btn-about">About</button>
+        
+
+
+
       </div>
     </div>
   </nav>
@@ -230,12 +238,12 @@
 
 
   <!-- MODAL for add landmark button -->
-  <div class="container" id="landmark-edit-modal">
+ <div class="container" id="landmark-edit-modal">
 
   </div>
 
 
-
+  </div>
 
 
 </body>

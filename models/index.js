@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/project1CityLandmarks")
 
+var City = require('./cities');
 
-module.exports.City = require('./cities');
-module.exports.Landmark = require('./landmarks')
+module.exports.City = City;
+module.exports.Landmark = require('./landmarks');

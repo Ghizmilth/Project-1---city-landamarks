@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // let Landmark = require
 let LandmarkSchema = new Schema({
   name: String,
-  adress: String,
+  address: String,
   imageURL: String
 })
 
