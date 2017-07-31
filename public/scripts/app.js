@@ -1,38 +1,32 @@
-//let cityList = 0;
-var map;
-var infowindow;
-var placeLocation;
-
-
 $(document).ready(function() {
   console.log('JS is loaded');
 
-//This allows us to render albums on main page
+  //This allows us to render albums on main page
   $.ajax({
     method: 'GET',
     url: '/api/cities',
-    success: function (data) {
+    success: function(data) {
       renderOneCityOnly(data);
       populateDropDownCityMenu(data);
     }
   })
 
-//click on EDIT city button
+  //click on EDIT city button
   $('#city-render').on('click', '.edit-city', handleCityEdit);
   $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
 
   // click on an add city button
-  $('.modal-nav').on('click','.btn-add-city', handleAddCityClick);
+  $('.modal-nav').on('click', '.btn-add-city', handleAddCityClick);
 
   //click on save button in add city add form
 
-  $('#cityModal').on('click','#saveCity',handleNewCitySubmit);
+  $('#cityModal').on('click', '#saveCity', handleNewCitySubmit);
 
   //Open Add landmark modal
-  $('#city-render').on('click','.btn-add-landmark', handleAddLandmarkClick);
+  $('#city-render').on('click', '.btn-add-landmark', handleAddLandmarkClick);
 
   //save button - Landmark form
-  $('#landmarkFormModal').on('click','#saveLandmark', handleNewLandmarkSubmit);
+  $('#landmarkFormModal').on('click', '#saveLandmark', handleNewLandmarkSubmit);
 
 });
 
@@ -52,9 +46,9 @@ function handleAddLandmarkClick(e) {
 
 //Populate the dropdown menu for selecting cityList
 function populateDropDownCityMenu(menu) {
-    menu.forEach(function(menu) {
+  menu.forEach(function(menu) {
     renderDropMenu(menu);
-})
+  })
   console.log(menu);
 };
 
@@ -65,7 +59,7 @@ function renderDropMenu(menu) {
   let dropMenu = (`
     <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}" data-city-latlng="${menu.latLng}">${menu.name}</a</li>
     `);
-    $('.dropdown-menu').append(dropMenu);
+  $('.dropdown-menu').append(dropMenu);
 }
 
 //Edit a city
@@ -74,11 +68,11 @@ function handleCityEdit(city) {
   let $cityInfoEdit = $(city.target)
   let cityId = $cityInfoEdit.data('city-id');
   console.log('edit city', cityId);
-  $.get('/api/cities/' + cityId, function(editCity){
+  $.get('/api/cities/' + cityId, function(editCity) {
     console.log('got back the city object', editCity);
 
 
-   let cityToEdit = (`  <div class="modal fade editCityNow" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${editCity._id}">
+    let cityToEdit = (`  <div class="modal fade editCityNow" tabindex="-1" role="dialog" id="editCityModal" data-city-id="${editCity._id}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -164,41 +158,41 @@ function handleCityEdit(city) {
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal --> `)
 
-//adds the modal into the HTML after loading the city info
- $('#city-edit-modal').prepend(cityToEdit);
+    //adds the modal into the HTML after loading the city info
+    $('#city-edit-modal').prepend(cityToEdit);
 
-//calls modal to show up
- $('.editCityNow').modal();
+    //calls modal to show up
+    $('.editCityNow').modal();
 
-});
+  });
 };
 
 //Calls edit modal to screen
-function handleEditCityButton (edit) {
-    edit.preventDefault();
-    let cityId = $(this).parents('#editCityModal').data('city-id');
+function handleEditCityButton(edit) {
+  edit.preventDefault();
+  let cityId = $(this).parents('#editCityModal').data('city-id');
 
-    $('.editCityNow').modal('hide');
+  $('.editCityNow').modal('hide');
 
-    let cityData = {
-      name: $(".edited-city-name").val(),
-      description: $(".edited-city-description").val(),
-      coordinates: $(".edited-city-coordinates").val(),
-      population: $(".edited-city-population").val(),
-      area: $(".edited-city-area").val(),
-      elevation: $(".edited-city-elevation").val(),
-      time_zone: $(".edited-city-time-zone").val(),
-      imageURL: $(".edited-city-imageURL").val()
-    }
+  let cityData = {
+    name: $(".edited-city-name").val(),
+    description: $(".edited-city-description").val(),
+    coordinates: $(".edited-city-coordinates").val(),
+    population: $(".edited-city-population").val(),
+    area: $(".edited-city-area").val(),
+    elevation: $(".edited-city-elevation").val(),
+    time_zone: $(".edited-city-time-zone").val(),
+    imageURL: $(".edited-city-imageURL").val()
+  }
 
-      console.log('Editing this city', cityId, 'with the following info', cityData);
+  console.log('Editing this city', cityId, 'with the following info', cityData);
 
-      $.ajax ({
-        method: 'PUT',
-        url: '/api/cities/' + cityId,
-        data: cityData,
-        success: handleCityUpdateResponse
-    });
+  $.ajax({
+    method: 'PUT',
+    url: '/api/cities/' + cityId,
+    data: cityData,
+    success: handleCityUpdateResponse
+  });
 }
 
 
@@ -208,39 +202,39 @@ function handleCityUpdateResponse(data) {
 
   let cityId = data._id;
   console.log(cityId);
-    // close modal
+  // close modal
 
-    $("div").remove(".city");
-    $("div").remove("#city-facts");
-    $("div").remove(".edition-button");
-    $("div").remove("#clear-this-also");
-    $("div").remove("#btn-clear-landmark");
-    $("div").remove(".modal-footer");
-    $("div").remove("#landmarksSection");
+  $("div").remove(".city");
+  $("div").remove("#city-facts");
+  $("div").remove(".edition-button");
+  $("div").remove("#clear-this-also");
+  $("div").remove("#btn-clear-landmark");
+  //    $("div").remove(".modal-footer");
+  $("div").remove("#landmarksSection");
 
 
-    renderNewCityUpdated(data);
-  };
+  renderNewCityUpdated(data);
+};
 
 function renderNewCityUpdated(newCity) {
   //confirm the id of the selected city
   let cityId = newCity._id;
   console.log('rendering city', cityId);
-//get the information of the selected city
-  $.get('/api/cities/' + cityId, function(city){
+  //get the information of the selected city
+  $.get('/api/cities/' + cityId, function(city) {
     console.log('this is the nity to show now', city);
-//removes current city informtion from HTML
+    //removes current city informtion from HTML
     $("div").remove(".city");
     $("div").remove("#city-facts");
     $("div").remove(".edition-button");
     $("div").remove("#clear-this-also");
     $("div").remove("#btn-clear-landmark");
-    $("div").remove(".modal-footer");
+    //  $("div").remove(".modal-footer");
     $("div").remove("#landmarksSection");
 
 
-//create template for rendering new city info
-  var cityHtml = (`
+    //create template for rendering new city info
+    var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
     <div class="col-sm-6">
@@ -269,19 +263,35 @@ function renderNewCityUpdated(newCity) {
     <div class="edition-button">
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
+
+    <div id="clear-landmark">
+     <section class="container" id="landmarksSection">
+       <div class="row" id="btn-clear-landmark">
+
+
+         <p>Name: ${city.landmarks[0].name}</p>
+          <p>Address: ${city.landmarks[0].address}</p>
+           <img src= ${city.landmarks[0].imageURL} height="200px" width="200px"></img>
+
+       </div>
+       <div class="row" id="clear-this-also">
+         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
+       </div>
+     </section>
+     </div>
   </div>
   `);
 
-  $('#city-render').append(cityHtml);
-})
+    $('#city-render').append(cityHtml);
+  })
 }
 
 
 
 function renderOneCityOnly(city) {
-    console.log('rendering city', city);
+  console.log('rendering city', city);
 
-    var oneCity = (`
+  var oneCity = (`
     <div class="row city" data-city-id="${city[0]._id}">
 
       <div class="col-sm-6">
@@ -298,7 +308,7 @@ function renderOneCityOnly(city) {
         <div class="row">
           <div class="col-md-12" id="city-facts">
             <ul>
-              <li id="coordinatesInfo">Coordinates: ${city[0].coordinates}</li>
+                <li id="coordinatesInfo">Coordinates: ${city[0].coordinates}</li>
                 <li id="cityPopulation">Population: ${city[0].population}</li>
                 <li id="cityArea">City Area: ${city[0].area}</li>
                 <li id="cityElevation">Elevation: ${city[0].elevation}</li>
@@ -310,14 +320,16 @@ function renderOneCityOnly(city) {
       <div class="edition-button">
       <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
       </div>
-    </div>
 
     <!--Begin of landmarks -->
-    <div id="clear-landmark"
+    <div id="clear-landmark">
      <section class="container" id="landmarksSection">
        <div class="row" id="btn-clear-landmark">
 
-         Testing
+
+         <p>Name: ${city[0].landmarks[0].name}</p>
+          <p>Address: ${city[0].landmarks[0].address}</p>
+           <img src= ${city[0].landmarks[0].imageURL} height="200px" width="200px"></img>
 
        </div>
        <div class="row" id="clear-this-also">
@@ -330,17 +342,19 @@ function renderOneCityOnly(city) {
 
 
   </div>
+  </div>
+
     `);
 
-    $('#city-render').append(oneCity);
-  }
+  $('#city-render').append(oneCity);
+}
 
 //Render cities on HTML
 function renderCities(cities) {
   cities.forEach(function(city) {
     renderOneCity(city);
   })
-  };
+};
 
 //Render One City on HTML
 function renderNewCity(city) {
@@ -352,7 +366,7 @@ function renderNewCity(city) {
 
 
 
-  $.get('/api/cities/' + cityId, function(city){
+  $.get('/api/cities/' + cityId, function(city) {
     console.log('this is the nity to show now', city);
 
     $("div").remove(".city");
@@ -363,17 +377,17 @@ function renderNewCity(city) {
     $("div").remove("#btn-clear-landmark");
 
 
-    $("div").remove(".modal-footer");
+    //    $("div").remove(".modal-footer");
     $("div").remove("#landmarksSection");
 
 
-    function renderLandmark(landmark){
+    function renderLandmark(landmark) {
       return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
       <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
     }
 
 
-  var cityHtml = (`
+    var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
     <div class="col-sm-6">
@@ -405,12 +419,14 @@ function renderNewCity(city) {
     </div>
 
 
-    <!--Begin of landmarks -->
     <div id="clear-landmark">
      <section class="container" id="landmarksSection">
        <div class="row" id="btn-clear-landmark">
 
-         <p>${city.landmarksHtml}</p>
+
+         <p>Name: ${city.landmarks[0].name}</p>
+          <p>Address: ${city.landmarks[0].address}</p>
+           <img src= ${city.landmarks[0].imageURL} height="200px" width="200px"></img>
 
        </div>
        <div class="row" id="clear-this-also">
@@ -425,8 +441,8 @@ function renderNewCity(city) {
   </div>
   `);
 
-  $('#city-render').append(cityHtml);
-})
+    $('#city-render').append(cityHtml);
+  })
 }
 
 
@@ -434,7 +450,7 @@ function renderNewCity(city) {
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
 function handleAddCityClick(e) {
   console.log('add-city clicked!');
-  $('#cityModal').modal();  // display the modal!
+  $('#cityModal').modal(); // display the modal!
 }
 
 
@@ -451,7 +467,7 @@ function handleNewCitySubmit(e) {
   var $time_zoneField = $modal.find('#time_zone');
   var $imageURL = $modal.find('#imageURL');
 
-  var dataToPost= {
+  var dataToPost = {
     name: $cityNameField.val(),
     description: $descriptionField.val(),
     coordinates: $coordinatesField.val(),
@@ -465,7 +481,7 @@ function handleNewCitySubmit(e) {
   //Post data to city list
   var cityPostToServer = '/api/cities/';
 
-  $.post(cityPostToServer, dataToPost, function (data){
+  $.post(cityPostToServer, dataToPost, function(data) {
     console.log('received data from post to /cities:', data);
 
     //clear form
@@ -495,28 +511,29 @@ function handleNewLandmarkSubmit(e) {
     name: $landmarkNameField.val(),
     address: $addressField.val(),
     imageURL: $landmarkImageURL.val()
-    };
+  };
 
-     var id= $(this).closest('city-render').data('city-id');
+  var id = $(this).closest('city-render').data('city-id');
+  console.log(id);
 
-    console.log (landmarktoPost);
+  console.log(landmarktoPost);
 
 
   var landmarkPostToServer = '/api/cities' + id + '/landmarks';
 
-  $.post(landmarkPostToServer, landmarktoPost, function (data){
-    console.log ('recevied data from post to /landmarks:', data);
+  $.post(landmarkPostToServer, landmarktoPost, function(data) {
+    console.log('recevied data from post to /landmarks:', data);
 
     //clear form
     $landmarkNameField.val(''),
-    $addressField.val(''),
-    $landmarkImageURL.val('');
+      $addressField.val(''),
+      $landmarkImageURL.val('');
 
     //close modal
     $modal.modal('hide');
 
     //update correct city to show new landmark
-    $.get('/api/cities/' + cityId, function (data) {
+    $.get('/api/cities/' + cityId, function(data) {
       //remove current instance of city fr. the page.
       $('[data-city-id=' + cityId + ']').remove();
 
