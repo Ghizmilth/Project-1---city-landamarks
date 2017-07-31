@@ -1,9 +1,8 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
-const Landmark = require('./landmarks');
+var Landmark = require('./landmarks');
 
-// let Landmark = require
 let CitySchema = new Schema({
   name: String,
   description: String,

@@ -37,7 +37,12 @@ $(document).ready(function() {
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
-  console.log('Add Landmark button clicked');
+  console.log('add landmark clicked!');
+  var id = $(this).parents('.row-city').data('city-id');
+
+  var $cityRow = $(this).closest('.row-city');
+  var id = $cityRow.data('city-id');
+  console.log('id', id);
   $('#landmarkFormModal').modal();
 }
 
@@ -341,6 +346,11 @@ function renderNewCity(city) {
     $("div").remove("#landmarksSection");
 
 
+    function renderLandmark(landmark){
+      return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
+      <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
+    }
+
   var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
@@ -377,7 +387,7 @@ function renderNewCity(city) {
      <section class="container" id="landmarksSection">
        <div class="row">
 
-         Testing
+         <p>${city.landmarksHtml}</p>
 
        </div>
        <div class="row">
@@ -446,7 +456,7 @@ function handleNewCitySubmit(e) {
   });
 }
 
-// when the add landmark modal submit button is clicked:
+// when the landmark modal submit button is clicked:
 function handleNewLandmarkSubmit(e) {
   e.preventDefault();
   console.log('Landmark SUBMIT clicked');
@@ -456,25 +466,41 @@ function handleNewLandmarkSubmit(e) {
   var $addressField = $modal.find('#address');
   var $landmarkImageURL = $modal.find('#landmarkImageURL');
 
+  //get data from form fields
   var landmarktoPost = {
     name: $landmarkNameField.val(),
     address: $addressField.val(),
     imageURL: $landmarkImageURL.val()
     };
 
+     var id= $(this).closest('city-render').data('city-id');
 
-  var landmarkPostToServer='/api/cities/:citiesId/landmarks';
+    console.log (landmarktoPost);
 
 
+  var landmarkPostToServer = '/api/cities' + id + '/landmarks';
 
   $.post(landmarkPostToServer, landmarktoPost, function (data){
+    console.log ('recevied data from post to /landmarks:', data);
 
-
-    console.log(landmarktoPost);
     //clear form
     $landmarkNameField.val(''),
     $addressField.val(''),
-    $landmarkImageURL.val('')
+    $landmarkImageURL.val('');
+
+    //close modal
+    $modal.modal('hide');
+
+    //update correct city to show new landmark
+    $.get('/api/cities/' + cityId, function (data) {
+      //remove current instance of city fr. the page.
+      $('[data-city-id=' + cityId + ']').remove();
+
+      //re-render city with new city data (and new landmark)
+      renderNewCity(data);
+    })
+
+
   });
 }
 
