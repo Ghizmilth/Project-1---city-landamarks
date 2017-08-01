@@ -13,18 +13,14 @@ $(document).ready(function() {
 
   //click on EDIT city button
   $('#city-render').on('click', '.edit-city', handleCityEdit);
+  //submit city changes
   $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
-
   // click on an add city button
   $('.modal-nav').on('click', '.btn-add-city', handleAddCityClick);
-
   //click on save button in add city add form
-
   $('#cityModal').on('click', '#saveCity', handleNewCitySubmit);
-
   //Open Add landmark modal
   $('#city-render').on('click', '.btn-add-landmark', handleAddLandmarkClick);
-
   //save button - Landmark form
   $('#landmarkFormModal').on('click', '#saveLandmark', handleNewLandmarkSubmit);
 
@@ -35,11 +31,6 @@ $(document).ready(function() {
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log('add landmark clicked!');
-  var id = $(this).parents('.row-city').data('city-id');
-
-  var $cityRow = $(this).closest('.row-city');
-  var id = $cityRow.data('city-id');
-  console.log('id', id);
   $('#landmarkFormModal').modal();
 }
 
@@ -57,7 +48,7 @@ function populateDropDownCityMenu(menu) {
 function renderDropMenu(menu) {
   console.log('collecting menu list');
   let dropMenu = (`
-    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}" data-city-latlng="${menu.latLng}">${menu.name}</a</li>
+    <li class="dropMenuList"> <a href='#' onclick="renderNewCity(this)" class="menu-list-link" data-id-city="${menu._id}">${menu.name}</a</li>
     `);
   $('.dropdown-menu').append(dropMenu);
 }
@@ -343,10 +334,6 @@ function renderOneCityOnly(city) {
        </div>
      </section>
      </div>
-
-
-
-
   </div>
   </div>
 
@@ -436,7 +423,7 @@ function renderNewCity(city) {
 
        </div>
        <div class="row" id="clear-this-also">
-         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
+         <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
        </div>
      </section>
      </div>
@@ -517,11 +504,11 @@ function handleNewLandmarkSubmit(e) {
   var landmarktoPost = {
     name: $landmarkNameField.val(),
     address: $addressField.val(),
-    comments: $commentsField.val(),
+    comments: $commentField.val(),
     imageURL: $landmarkImageURL.val()
   };
 
-  var id = $(this).closest('city-render').data('city-id');
+  var id = $(this).parents('.btn-add-landmark').data('city-id');
   console.log(id);
 
   console.log(landmarktoPost);
