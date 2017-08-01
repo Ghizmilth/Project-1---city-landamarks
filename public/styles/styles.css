@@ -1,13 +1,42 @@
 
+body {
+  text-align: center;
+
+}
+
+h1, h2, h3, h4, p, li, ul, button {
+  font-family: 'Scope One', serif;
+}
+
+h2 {
+  font-size: 24px;
+}
+#city-render {
+  text-align: center;
+}
+
+button {
+  margin: 15px;
+}
+
+#edit-list {
+  text-align: right;
+  list-style-type: none;
+}
+
+#city-facts {
+  text-decoration: none;
+  padding: 30px;
+}
 
 
-h1#header-title{
-  font-family: 'Oswald', sans-serif;
+h1 {
+  font-family: 'Scope One', serif;
   font-size: 48pt;
   text-align: center;
-  color: #81E4E4;
+  color: black;
   text-transform: uppercase;
-
+  background: lightgrey;
 }
 
 .tagline{
@@ -19,26 +48,33 @@ h1#header-title{
 }
 
 #main-buttons{
-  background-color: #81E4E4;
+
   padding: 10px 10px 10px 50px;
-  border-radius: 25px;
+  border-radius: 10px;
+  text-align: left;
+
 }
-.modal-nav{display: inline;}
-/* Always set the map height explicitly to define the size of the div
-  * element that contains the map. */
- #map {
-   height: 600px;
-   width: 600px;
- }
- /* Optional: Makes the sample page fill the window. */
+
+.edition-button {
+  text-align: right;
+}
+.modal-nav{
+  display: inline;
+}
+
  html, body {
    height: 100%;
    margin: 0;
    padding: 0;
  }
+
+ nav {
+
+ }
 img {
-  border: 1px solid blue;
-  width: 60%;
+  border: 1px lightgrey;
+  width: 80%;
+  margin: 2%;
 }
  #description {
          font-family: Roboto;

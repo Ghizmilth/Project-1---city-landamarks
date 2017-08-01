@@ -12,7 +12,7 @@
   <!--Vendor scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+  <link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet">
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD8joBpyN1ZfSPMCR6_zw3nXa8acCKsx4&libraries=places"></script>
   <!--Aplication scripts -->
   <script src="/scripts/app.js"></script>
@@ -23,7 +23,7 @@
 
   <div class="container">
     <h1>Wander Around!!</h1>
-    <p>Don't suffer of FOMO anymore. Know the city you're visiting!</p>
+    <h2>Don't suffer of FOMO anymore. Know the city you're visiting!</h2>
   </div>
 
   <!-- Navigation bar -->
@@ -31,19 +31,20 @@
     <div class="row">
       <div class="modal-nav">
 
-        <div class="dropdown">
+          <div class="dropdown">
           <button class="btn btn-city" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Wander in this city!
-    <span class="caret"></span>
-    </button>
+            Wander in this city!
+            <span class="caret"></span>
+          </button>
+
           <ul class="dropdown-menu" aria-labelledby="dLabel">
-
           </ul>
-        </div>
 
-        <button type="button" class="btn btn-add-city">Add New City</button>
+          </div>
 
-        <button type="button" class="btn btn-about">About</button>
+         <button type="button" class="btn btn-add-city">Add New City</button>
+
+
       </div>
     </div>
   </nav>
@@ -212,9 +213,7 @@
                 <input id="landmarkImageURL" name="landmarkImageURL" type="text" placeholder="" class="form-control input-md">
               </div>
             </div>
-
           </fieldset>
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
