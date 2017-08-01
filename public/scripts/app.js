@@ -7,6 +7,7 @@ $(document).ready(function() {
     url: '/api/cities',
     success: function(data) {
       renderOneCityOnly(data);
+      //renderOneLandmark(data);
       populateDropDownCityMenu(data);
     }
   })
@@ -17,16 +18,42 @@ $(document).ready(function() {
   $('#city-edit-modal').on('click', '#save-edit-city', handleEditCityButton);
   // click on an add city button
   $('.modal-nav').on('click', '.btn-add-city', handleAddCityClick);
-  //click on save button in add city add form
+  //click on save button in add city form
   $('#cityModal').on('click', '#saveCity', handleNewCitySubmit);
   //Open Add landmark modal
-  $('#city-render').on('click', '.btn-add-landmark', handleAddLandmarkClick);
+  $('#landmark-edit-modal').on('click', '.btn-add-landmark', handleAddLandmarkClick);
   //save button - Landmark form
   $('#landmarkFormModal').on('click', '#saveLandmark', handleNewLandmarkSubmit);
+
 
 });
 
 
+function renderOneLandmark(city) {
+  var cityRendered = city[0]._id
+  console.log('rendring landmarks for this city', cityRendered);
+
+  var oneLandmark = (`
+    <div id="clear-landmark" data-city-id="${city[0]._id}>
+     <section class="container" id="landmarksSection">
+       <div class="row" id="btn-clear-landmark" data-city-id="${city[0]._id}>
+         <p>Name: ${city[0].landmarks[0].name}</p>
+          <p>Address: ${city[0].landmarks[0].address}</p>
+          <div id="comments-to-add">
+          <p>Comments: ${city[0].landmarks[0].comments}</p>
+          </div>
+           <img src= ${city[0].landmarks[0].imageURL} height="200px" width="200px"></img>
+
+       </div>
+       <div class="row" id="clear-this-also">
+         <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city[0]._id}">Add Landmark</button>
+       </div>
+     </section>
+     </div>
+  `)
+  $('#landmark-edit-modal').append(oneLandmark);
+
+}
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
@@ -228,7 +255,7 @@ function renderNewCityUpdated(newCity) {
     var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
-    <div class="col-sm-6">
+    <div class="col-md-12" id="style-city">
       <h2>${city.name}</h2>
       <p>${city.description}</P>
     </div>
@@ -241,7 +268,7 @@ function renderNewCityUpdated(newCity) {
     <div class="city-info">
       <div class="row">
         <div class="col-md-12" id="city-facts">
-          <ul>
+          <ul id="edit-list">
             <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
               <li id="cityPopulation">Population: ${city.population}</li>
               <li id="cityArea">City Area: ${city.area}</li>
@@ -269,7 +296,7 @@ function renderNewCityUpdated(newCity) {
 
        </div>
        <div class="row" id="clear-this-also">
-         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
+         <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city._id}>Add Landmark</button>
        </div>
      </section>
      </div>
@@ -288,20 +315,22 @@ function renderOneCityOnly(city) {
   var oneCity = (`
     <div class="row city" data-city-id="${city[0]._id}">
 
-      <div class="col-sm-6">
+    <div class="row"
+      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+      <img src="${city[0].imageURL}"></img>
+      </div>
+
+      <div class="col-md-12" id="style-city">
         <h2>${city[0].name}</h2>
         <p>${city[0].description}</P>
       </div>
-      <div class="row"
-        <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
-        <img src="${city[0].imageURL}"></img>
-        </div>
+
       </div>
 
       <div class="city-info">
         <div class="row">
           <div class="col-md-12" id="city-facts">
-            <ul>
+            <ul id="edit-list">
                 <li id="coordinatesInfo">Coordinates: ${city[0].coordinates}</li>
                 <li id="cityPopulation">Population: ${city[0].population}</li>
                 <li id="cityArea">City Area: ${city[0].area}</li>
@@ -315,25 +344,7 @@ function renderOneCityOnly(city) {
       <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
       </div>
 
-    <!--Begin of landmarks -->
-    <div id="clear-landmark">
-     <section class="container" id="landmarksSection">
-       <div class="row" id="btn-clear-landmark">
 
-
-         <p>Name: ${city[0].landmarks[0].name}</p>
-          <p>Address: ${city[0].landmarks[0].address}</p>
-          <div id="comments-to-add">
-          <p>Comments: ${city[0].landmarks[0].comments}</p>
-          </div>
-           <img src= ${city[0].landmarks[0].imageURL} height="200px" width="200px"></img>
-
-       </div>
-       <div class="row" id="clear-this-also">
-         <button type="button" class="btn btn-add-landmark" >Add Landmark</button>
-       </div>
-     </section>
-     </div>
   </div>
   </div>
 
@@ -360,7 +371,7 @@ function renderNewCity(city) {
 
 
   $.get('/api/cities/' + cityId, function(city) {
-    console.log('this is the nity to show now', city);
+    console.log('this is the city to show now', city);
 
     $("div").remove(".city");
     $("div").remove("#city-facts");
@@ -380,20 +391,21 @@ function renderNewCity(city) {
     var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
-    <div class="col-sm-6">
+  <div class="row"
+    <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
+    <img src="${city.imageURL}"></img>
+    </div>
+    <div class="col-md-12" id='style-city'>
       <h2>${city.name}</h2>
       <p>${city.description}</P>
     </div>
-    <div class="row"
-      <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
-      <img src="${city.imageURL}"></img>
-      </div>
+
     </div>
 
     <div class="city-info">
       <div class="row">
         <div class="col-md-12" id="city-facts">
-          <ul>
+          <ul id="edit-list">
             <li id="coordinatesInfo">Coordinates: ${city.coordinates}</li>
               <li id="cityPopulation">Population: ${city.population}</li>
               <li id="cityArea">City Area: ${city.area}</li>
@@ -407,29 +419,6 @@ function renderNewCity(city) {
     <div class="edition-button">
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
-
-
-    <div id="clear-landmark">
-     <section class="container" id="landmarksSection">
-       <div class="row" id="btn-clear-landmark">
-
-
-         <p>Name: ${city.landmarks[0].name}</p>
-          <p>Address: ${city.landmarks[0].address}</p>
-          <div id="comments-to-add">
-          <p>Comments: ${city.landmarks[0].comments}</p>
-          </div>
-           <img src= ${city.landmarks[0].imageURL} height="200px" width="200px"></img>
-
-       </div>
-       <div class="row" id="clear-this-also">
-         <button type="button" class="btn btn-add-landmark" data-city-id="${city._id}">Add Landmark</button>
-       </div>
-     </section>
-     </div>
-
-
-
 
   </div>
   `);
@@ -487,12 +476,19 @@ function handleNewCitySubmit(e) {
     $time_zoneField.val('');
     $imageURL.val('');
   });
+
+  $('#cityModal').modal('hide');
 }
 
 // when the landmark modal submit button is clicked:
-function handleNewLandmarkSubmit(e) {
-  e.preventDefault();
+function handleNewLandmarkSubmit(landmark) {
+  landmark.preventDefault();
   console.log('Landmark SUBMIT clicked');
+
+//  var $foundCityId = $(landmark.target);//.parents('btn-add-landmark').data('city-id');
+  var cityId = landmark._id;
+  console.log(cityId);
+
 
   var $modal = $('#landmarkFormModal');
   var $landmarkNameField = $modal.find('#landmarkName');
@@ -508,8 +504,6 @@ function handleNewLandmarkSubmit(e) {
     imageURL: $landmarkImageURL.val()
   };
 
-  var id = $(this).parents('.btn-add-landmark').data('city-id');
-  console.log(id);
 
   console.log(landmarktoPost);
 
