@@ -3,6 +3,12 @@ const Schema = mongoose.Schema;
 
 var Landmark = require('./landmarks');
 
+// let LandmarkSchema = new Schema({
+//   name: String,
+//   address: String,
+//   imageURL: String
+// });
+
 let CitySchema = new Schema({
   name: String,
   description: String,
@@ -10,7 +16,6 @@ let CitySchema = new Schema({
   population: String,
   area: String,
   elevation: String,
-  latLng: {"lat": Number, "lng": Number},
   time_zone: String,
   imageURL: String,
   landmarks: [Landmark.schema]

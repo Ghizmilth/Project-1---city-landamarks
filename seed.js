@@ -8,7 +8,6 @@ var cityList =[];
               population: '2,877,215',
               area:'496.3 sq mi',
               elevation: '69 ft',
-              latLng: {"lat": 41.89, "lng": 12.51},
               time_zone: 'CET (UTC+1)',
               imageURL:'https://www.thetimes.co.uk/travel/s3/growthtravel-prod/uploads/2016/04/Rome-on-a-budget.jpg'
             });
@@ -19,7 +18,6 @@ var cityList =[];
               population: '1,759,407',
               area:'202.8 sq mi',
               elevation: 'Lowest 315 ft, Highest 1,729 ft',
-              latLng: {"lat": 41.89, "lng": 12.51},
               time_zone: 'CET (UTC+1)',
               imageURL:'http://rawlangs.com/wp-content/uploads/2014/09/Chain_Bridge.jpg'
             });
@@ -47,8 +45,14 @@ var cityList =[];
 var landmarkList = [];
   landmarkList.push({
     name: 'Golden Gate Bridge',
-    address: '',
+    address: '123 Main Street',
+    comments: 'It is an amzing experience to cross it on a bike. Hidaner',
     imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+});
+
+//add all landmarks to each city
+cityList.forEach(function(city) {
+  city.landmarks = landmarkList;
 });
 
 //removing all hardcoded dat and adding new one
