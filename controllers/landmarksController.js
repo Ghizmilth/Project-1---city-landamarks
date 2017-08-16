@@ -1,7 +1,7 @@
 var db = require('../models');
 
 
-  // POST '/api/cities/:cityId/landmarks
+  // POST '/api/cities/:citiesId/landmarks
   function create(req, res) {
     db.City.findById(req.params.citiesId, function(err, foundCity) {
       console.log(req.body);

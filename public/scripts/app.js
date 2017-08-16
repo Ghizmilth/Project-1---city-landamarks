@@ -6,7 +6,7 @@ $(document).ready(function() {
     method: 'GET',
     url: '/api/cities',
     success: function(data) {
-      renderOneCityOnly(data);
+    //  renderOneCityOnly(data);
       populateDropDownCityMenu(data);
     }
   })
@@ -20,7 +20,12 @@ $(document).ready(function() {
   //click on save button in add city add form
   $('#cityModal').on('click', '#saveCity', handleNewCitySubmit);
   //Open Add landmark modal
+
+  $('#landmarksSection').on('click','.btn-add-landmark',handleAddLandmarkClick);
+
+
   $('#city-render').on('click', '.btn-add-landmark', handleAddLandmarkClick);
+
   //save button - Landmark form
   $('#landmarkFormModal').on('click', '#saveLandmark', handleNewLandmarkSubmit);
 
@@ -281,7 +286,7 @@ function renderNewCityUpdated(newCity) {
 }
 
 
-
+/*
 function renderOneCityOnly(city) {
   console.log('rendering city', city);
 
@@ -349,7 +354,7 @@ function renderCities(cities) {
   })
 };
 
-//Render One City on HTML
+//Render New City on HTML
 function renderNewCity(city) {
   let cityId = $(city).data('id-city');
   console.log('rendering city', cityId);
@@ -437,7 +442,7 @@ function renderNewCity(city) {
     $('#city-render').append(cityHtml);
   })
 }
-
+*/
 
 
 // when the ADD CITY button is clicked, display the modal to display form for adding a city
@@ -512,9 +517,15 @@ function handleNewLandmarkSubmit(e) {
   console.log(id);
 
   console.log(landmarktoPost);
+}
 
+
+
+/*
+  $.post(landmarkPostToServer, dataToPost, function (data){
 
   var landmarkPostToServer = '/api/cities' + id + '/landmarks';
+
 
   $.post(landmarkPostToServer, landmarktoPost, function(data) {
     console.log('recevied data from post to /landmarks:', data);
@@ -539,3 +550,4 @@ function handleNewLandmarkSubmit(e) {
 
   });
 }
+*/
