@@ -521,7 +521,7 @@ function handleNewLandmarkSubmit(e) {
 
 
 
-/*
+
   $.post(landmarkPostToServer, dataToPost, function (data){
 
   var landmarkPostToServer = '/api/cities' + id + '/landmarks';
@@ -550,4 +550,3 @@ function handleNewLandmarkSubmit(e) {
 
   });
 }
-*/
