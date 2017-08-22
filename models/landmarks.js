@@ -10,6 +10,7 @@ let LandmarkSchema = new Schema({
   _city: {type: Schema.Types.ObjectId, ref: 'City'}
 })
 
+
 let Landmark = mongoose.model('Landmark', LandmarkSchema);
 
 module.exports = Landmark;

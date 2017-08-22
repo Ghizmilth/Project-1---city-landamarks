@@ -24,15 +24,19 @@ app.get('/', function home(req,res) {
  * JSON API Endpoints
  */
 
+//City front-end server routes
 app.get('/api', controllers.api.index);
 app.get('/api/cities', controllers.cities.index);
 app.get('/api/cities/:citiesId', controllers.cities.show);
+app.put('/api/cities/:citiesId', controllers.cities.update);
 app.post('/api/cities', controllers.cities.create);
+
 
 app.get('api/landmarks', controllers.landmarks.show);
 app.post('api/landmarks', controllers.landmarks.create);
 app.delete('/api/landmarks/:landmarkId', controllers.landmarks.destroy);
 app.put('/api/landmarks/:landmarkId', controllers.landmarks.update);
+
 
 
 //LISTENING

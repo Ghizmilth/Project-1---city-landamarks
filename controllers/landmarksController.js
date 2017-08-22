@@ -2,6 +2,7 @@ var db = require('../models');
 
   //GET all landmarks  /api/landmarks/
 
+
   function show (req, res){
     db.Landmark.find({}, function (err, allLandmarks){
       if (err){
@@ -12,6 +13,7 @@ var db = require('../models');
   }
 
   // POST /api/landmarks/
+
   function create(req, res) {
     db.Landmark.create(req.body, function(err,landmark){
       if(err){
@@ -61,6 +63,7 @@ function update (req, res){
     })
 
 }
+
 
 
   module.exports = {
