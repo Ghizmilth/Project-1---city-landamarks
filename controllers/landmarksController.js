@@ -36,10 +36,10 @@ function destroy(req, res) {
 function landmarksByCity (req, res){
   let city_id = req.params.cityId
   db.Landmark.find({_city: city_id}, function (err, cityLandmarks){
-    if (err)
+    if (err) {
       console.log ('error finding landmarks by city: ', err)
     }
-    console.log(req.params.cityId)
+      console.log(req.params.cityId)
 
     cityLandmarks.forEach(function(landmark){
       console.log ('landmark_city ', landmark._city)
@@ -48,6 +48,20 @@ function landmarksByCity (req, res){
     res.json(landmarksByCity)
     })
 }
+
+//UPDATE landmarks by id /api/landmarks/:landmarkId
+
+function update (req, res){
+  console.log('updating with data: ', req.body)
+  db.Landmark.findById(req.params.landmarkId, function (err, foundLandmark){
+    if (err) {
+      console.log ('error updating landmark: ', err)
+      }
+      res.json(savedLandmark)
+    })
+
+}
+
 
   module.exports = {
     show: show,
