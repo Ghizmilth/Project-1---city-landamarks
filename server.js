@@ -28,10 +28,11 @@ app.get('/api', controllers.api.index);
 app.get('/api/cities', controllers.cities.index);
 app.get('/api/cities/:citiesId', controllers.cities.show);
 app.post('/api/cities', controllers.cities.create);
-app.get('api/cities/:citiesId/landmarks', controllers.cities.index);
-app.post('/api/cities/:citiesId/landmarks', controllers.cities.create);
 
-app.put('/api/cities/:citiesId', controllers.cities.update);
+app.get('api/landmarks', controllers.landmarks.show);
+app.post('api/landmarks', controllers.landmarks.create);
+app.delete('/api/landmarks/:landmarkId', controllers.landmarks.destroy);
+app.put('/api/landmarks/:landmarkId', controllers.landmarks.update);
 
 
 //LISTENING
