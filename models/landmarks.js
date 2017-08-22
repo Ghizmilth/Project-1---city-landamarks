@@ -6,8 +6,10 @@ let LandmarkSchema = new Schema({
   name: String,
   address: String,
   comments: String,
-  imageURL: String
-});
+  imageURL: String,
+  _city: {type: Schema.Types.ObjectId, ref: 'City'}
+})
+
 
 let Landmark = mongoose.model('Landmark', LandmarkSchema);
 
