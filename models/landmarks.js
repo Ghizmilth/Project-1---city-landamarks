@@ -7,7 +7,7 @@ let LandmarkSchema = new Schema({
   address: String,
   comments: String,
   imageURL: String
-})
+});
 
 let Landmark = mongoose.model('Landmark', LandmarkSchema);
 

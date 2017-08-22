@@ -42,18 +42,18 @@ var cityList =[];
               imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
             });
 
-// var landmarkList = [];
-//   landmarkList.push({
-//     name: 'Golden Gate Bridge',
-//     address: '123 Main Street',
-//     comments: 'It is an amzing experience to cross it on a bike. Hidaner',
-//     imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
-// });
+var landmarkList = [];
+  landmarkList.push({
+    name: 'Golden Gate Bridge',
+    address: '123 Main Street',
+    comments: 'It is an amzing experience to cross it on a bike. Hidaner',
+    imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+});
 
-// //add all landmarks to each city
-// cityList.forEach(function(city) {
-//   city.landmarks = landmarkList;
-// });
+//add all landmarks to each city
+cityList.forEach(function(city) {
+  city.landmarks = landmarkList;
+});
 
 //removing all hardcoded dat and adding new one
 db.City.remove({}, function(err, cities){

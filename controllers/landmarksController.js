@@ -1,7 +1,7 @@
 var db = require('../models');
 
 
-  // POST '/api/cities/:cityId/landmarks
+  // POST '/api/cities/:cityId/landmarks'
   function create(req, res) {
     db.City.findById(req.params.citiesId, function(err, foundCity) {
       console.log(req.body);
@@ -13,6 +13,9 @@ var db = require('../models');
       });
     });
 }
+
+
+// DELETE '/api/cities/:cityId/landmarks'
 
   module.exports = {
     create: create
