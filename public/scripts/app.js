@@ -467,7 +467,7 @@ function handleNewLandmarkSubmit(landmark) {
 
   console.log(landmarktoPost);
 
-  var landmarkPostToServer = '/api/cities' + _id + '/landmarks';
+  var landmarkPostToServer = '/api/landmarks'
 
   $.post(landmarkPostToServer, landmarktoPost, function(data) {
     console.log('recevied data from post to /landmarks:', data);

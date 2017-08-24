@@ -42,18 +42,35 @@ var cityList =[];
               imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
             });
 
-var landmarkList = [];
-  landmarkList.push({
-    name: 'Golden Gate Bridge',
-    address: '123 Main Street',
-    comments: 'It is an amzing experience to cross it on a bike. Hidaner',
-    imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
-});
+  var landmarkList = [];
+          landmarkList.push({
+            name: 'Golden Gate Bridge',
+            address: '123 Main Street',
+            comments: 'It is an amzing experience to cross it on a bike. Hidaner',
+            imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+          });
+
+          landmarkList.push({
+            name: 'YOLO XOXO cliche church-key hoodie',
+            address: '444 4th Street',
+            comments: 'Fashion axe church-key banh mi palo santo truffaut whatever kickstarter pinterest hashtag waistcoat direct trade etsy listicle asymmetrical tote bag. ',
+            imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+          });
+
+          landmarkList.push({
+            name: 'Brunch paleo locavore palo santo',
+            address: '6748 Grove Blvd',
+            comments: ' Master cleanse deep v fixie food truck, pinterest tote bag pitchfork.',
+            imageURL: 'http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg'
+          });
+
 
 //add all landmarks to each city
-cityList.forEach(function(city) {
-  city.landmarks = landmarkList;
-});
+// cityList.forEach(function(city) {
+//   city.landmarks = landmarkList;
+// });
+
+
 
 //removing all hardcoded dat and adding new one
 db.City.remove({}, function(err, cities){
@@ -62,6 +79,17 @@ db.City.remove({}, function(err, cities){
     if (err) { return console.log('ERROR', err); }
     console.log("all Cities:", cities);
     console.log("created", cities.length, "cities");
+    process.exit();
+  });
+
+});
+
+db.Landmark.remove({}, function(err, landmarks){
+
+  db.Landmark.create(landmarkList, function(err, landmarks){
+    if (err) { return console.log('ERROR', err); }
+    console.log("all Landmarks:", landmarks);
+    console.log("created", landmarks.length, "landmarks");
     process.exit();
   });
 
