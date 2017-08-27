@@ -154,3 +154,6 @@ img {
        #target {
          width: 345px;
        }
+       .landmark-image {
+         width: 300px;
+       }
