@@ -26,6 +26,14 @@ app.get("/api/cities/:citiesId", controllers.cities.show);
 app.put("/api/cities/:citiesId", controllers.cities.update);
 app.post("/api/cities", controllers.cities.create);
 
+app.get("/api/cities/:id/landmarks", controllers.landmarks.landmarksByCity);
+
+app.get("/api/landmarks", controllers.landmarks.show);
+app.post("/api/landmarks", controllers.landmarks.create);
+
+app.delete("/api/landmarks/:landmarkId", controllers.landmarks.destroy);
+app.put("/api/landmarks/:landmarkId", controllers.landmarks.update);
+
 app.get("/api/landmarks", controllers.landmarks.show);
 app.post("/api/landmarks", controllers.landmarks.create);
 app.delete("/api/landmarks/:landmarkId", controllers.landmarks.destroy);

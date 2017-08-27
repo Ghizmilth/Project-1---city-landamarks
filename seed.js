@@ -37,7 +37,7 @@ cityList.push({
     "http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/tokyo-mud-bath-bar-mudbath0716.jpg?itok=dJ8lDXJh"
 });
 cityList.push({
-  name: "San Francisco",
+  name: "San Francisco, CA",
   description:
     "San Francisco, in northern California, is a hilly city on the tip of a peninsula surrounded by the Pacific Ocean and San Francisco Bay. It is known for its year-round fog, iconic Golden Gate Bridge, cable cars and colorful Victorian houses. The Financial District Transamerica Pyramid is its most distinctive skyscraper. In the bay sits Alcatraz Island, site of the notorious former prison.",
   coordinates: "37.7749° N, 122.4194° W",
@@ -55,8 +55,40 @@ landmarkList.push({
   address: "123 Main Street",
   comments: "It is an amzing experience to cross it on a bike. Hidaner",
   imageURL:
-    "http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg",
-  _city: "San Francisco"
+    "http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg"
+});
+
+landmarkList.push({
+  name: "YOLO XOXO cliche church-key hoodie",
+  address: "444 4th Street",
+  comments:
+    "Fashion axe church-key banh mi palo santo truffaut whatever kickstarter pinterest hashtag waistcoat direct trade etsy listicle asymmetrical tote bag. ",
+  imageURL:
+    "http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg"
+});
+
+landmarkList.push({
+  name: "Brunch paleo locavore palo santo",
+  address: "6748 Grove Blvd",
+  comments:
+    " Master cleanse deep v fixie food truck, pinterest tote bag pitchfork.",
+  imageURL:
+    "http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg"
+});
+
+// db.Landmark.remove({}, function(err, landmarks){
+//   //add all landmarks to each city
+//   db.Landmark.create(landmarkList, function(err, landmarks){
+//     if (err) { return console.log('ERROR', err); }
+//     console.log("all Landmarks:", landmarks);
+//     console.log("created", landmarks.length, "landmarks");
+//     process.exit();
+//   })
+// });
+
+// add all landmarks to each city list
+cityList.forEach(function(city) {
+  city.landmarks = landmarkList;
 });
 
 //removing all hardcoded data and adding new one

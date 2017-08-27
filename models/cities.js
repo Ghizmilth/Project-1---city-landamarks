@@ -3,12 +3,6 @@ const Schema = mongoose.Schema;
 
 var Landmark = require("./landmarks");
 
-// let LandmarkSchema = new Schema({
-//   name: String,
-//   address: String,
-//   imageURL: String
-// });
-
 let CitySchema = new Schema({
   name: String,
   description: String,
