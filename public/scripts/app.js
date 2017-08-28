@@ -33,7 +33,7 @@ $(document).ready(function() {
   //click on save button in add city form
   $('#cityModal').on('click', '#saveCity', handleNewCitySubmit);
   //Open Add landmark modal
-  $('#landmark-edit-modal').on('click', '.btn-add-landmark', handleAddLandmarkClick);
+  $('#landmarks-render').on('click', '.btn-add-landmark', handleAddLandmarkClick);
   //save button - Landmark form
   $('#landmarkFormModal').on('click', '#saveLandmark', handleNewLandmarkSubmit);
 
@@ -66,12 +66,7 @@ $(document).ready(function() {
 //
 // }
 
-// when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
-function handleAddLandmarkClick(e) {
-  console.log('add landmark clicked!');
-  var currentAlbumId = $(this).closest('')
-  $('#landmarkFormModal').modal();
-}
+
 
 //Populate the dropdown menu for selecting cityList
 function populateDropDownCityMenu(menu) {
@@ -297,7 +292,7 @@ function renderOneCityOnly(city) {
   console.log('rendering city', city);
 
   var oneCity = (`
-    <div class="row city" data-city-id="${city[0].id}">
+    <div class="row city" data-city-id="${city[0]._id}">
 
     <div class="row"
       <div class="col-md-3 col-sx-12 thumbnail city-photo" id="city-image">
@@ -462,12 +457,12 @@ function renderLandmarks(landmarks){
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-          <img src="${item.imageURL}">
+          <img src="${item[0].imageURL}">
         </div>
         <div class="col-md-12" id='style-city'>
-          <h2>${item.name}</h2>
-          <p>${item.address}</p>
-          <p>${item.comments}</P>
+          <h2>${item[0].name}</h2>
+          <p>${item[0].address}</p>
+          <p>${item[0].comments}</P>
         </div>
     </div>
     `
@@ -475,18 +470,20 @@ function renderLandmarks(landmarks){
   })
 }
 
-//POST TO /api/landmarks
-
+// when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
+function handleAddLandmarkClick(e) {
+  console.log('add landmark clicked!');
+  var currentCityId = $("div[data-city-id]", "main").attr("data-city-id");
+  console.log('id', currentCityId);
+  $('#landmarkFormModal').data('cityId', currentCityId);
+  $('#landmarkFormModal').modal();
+}
 
 
 // when the landmark modal submit button is clicked:
-function handleNewLandmarkSubmit(landmark) {
-  landmark.preventDefault();
+function handleNewLandmarkSubmit(e) {
+  e.preventDefault();
   console.log('Landmark SUBMIT clicked');
-
-  //var $foundCityId = $(landmark.target);//.parents('btn-add-landmark').data('city-id');
-  var landmarkId = landmark._id;
-  console.log(cityId);
 
   var $modal = $('#landmarkFormModal');
   var $landmarkNameField = $modal.find('#landmarkName');
@@ -501,9 +498,28 @@ function handleNewLandmarkSubmit(landmark) {
     comments: $commentField.val(),
     imageURL: $landmarkImageURL.val()
   };
-
   console.log(landmarktoPost);
-};
+  var cityId = $modal.data('data-city-id');
+
+  // CODE TO POST TO SERVER at /api/cities/:id/landmarks
+  var landmarkPostToServerURL = '/api/cities/' + cityId + '/landmarks';
+  $.post(landmarkPostToServerURL, landmarktoPost, function(data){
+    console.log('received data from post to /landmarks: ', data);
+    // clear form
+    $landmarkNameField.val("");
+    $addressField.val("");
+    $commentField.val("");
+    $landmarkImageURL.val("");
+
+    //close modal
+    $modal.modal('hide');
+    //update the correct city to show the new landmarkImageURL
+    fetchAndReRenderCityWithId(cityId);
+  });
+  // error(function(err){
+  //   console.log('post to /api/cities/:cityId/landmarks resulted in an error', err);
+  // });
+}
 
 
 

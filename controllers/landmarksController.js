@@ -1,9 +1,7 @@
 var db = require('../models');
 
   //GET all landmarks  /api/landmarks/
-
-
-  function show (req, res){
+  function index (req, res){
     db.Landmark.find({}, function (err, allLandmarks){
       if (err){
         console.log('error getting all landmarks: ', err)
@@ -12,26 +10,51 @@ var db = require('../models');
     })
   }
 
-  // POST /api/landmarks/
+  // app.POST to /api/cities/:id/landmarks
+  // function create (req, res){
+  //   db.City.findById(req.params.citiesId, function(err, foundCity){
+  //     console.log(req.body);
+  //     var newLandmark = new db.Landmark(req.body)
+  //     foundCity.landmark.push(newLandmark);
+  //     foundCity.save(function(err, savedCity){
+  //       console.log('newLandmark created: ', newLandmark);
+  //       res.json(newLandmark);
+  //     });
+  //   });
+  // }
 
   function create(req, res) {
-    db.Landmark.create(req.body, function(err,landmark){
-      if(err){
-        console.log('error creating new landmark: ', err)
-      }
-      console.log ('created landmark', landmark)
-      res.json(landmark)
-    })
+  //let city_id = req.params.cityId
+  db.City.findById(req.params.citiesId, function(err, cityLandmarks) {
+    console.log("error finding landmarks by city:", err);
+    var newLandmark = new db.Landmark(req.body);
+    cityLandmarks.landmarks.push(newLandmark);
+    cityLandmarks.save(function(err, savedLandmark) {
+      console.log("new landmark created", newLandmark);
+      res.json(newLandmark);
+    });
+  });
 }
 
-// DELETE a post /api/landmarks/:landmarkId
+
+
+// DELETE from /api/cities/:cityId/landmarks/:landmarkId
 function destroy(req, res) {
-  db.Landmark.findOneAndRemove({_id: req.params.landmarkId}, function (err, foundLandmark){
-    if (err){
-      console.log ('error deleting landmark by id: ', err)
+  db.City.findById(req.params.cityId, function(err,foundCity){
+    console.log(foundCity);
+    // got the City id, now find landmark within it
+    var correctLandmark = foundCity.landmarks.id(req.params.landmarkId);
+    if (correctLandmark){
+      correctLandmark.remove();
+      // resave the city now that the landmark has been removed
+      foundCity.save(function(err, saved){
+        console.log('REMOVED ', correctLandmark.name, 'FROM ', saved.landmarks);
+        res.json(correctLandmark);
+      });
+    } else {
+      res.send(404);
     }
-    res.json(foundLandmark)
-  })
+  });
 }
 
 //GET landmarks and filter by cityId /api/cities/:cityId/landmarks/
@@ -67,9 +90,9 @@ function update (req, res){
 
 
   module.exports = {
-    show: show,
+    index: index,
     create: create,
     update: update,
-    landmarksByCity: landmarksByCity,
+    //landmarksByCity: landmarksByCity,
     destroy: destroy
   }

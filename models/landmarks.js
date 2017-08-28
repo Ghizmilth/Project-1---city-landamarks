@@ -7,8 +7,8 @@ let LandmarkSchema = new Schema({
   name: String,
   address: String,
   comments: String,
-  imageURL: String,
-  _city: {type: Schema.Types.ObjectId, ref: 'City'}
+  imageURL: String
+  //_city: {type: Schema.Types.ObjectId, ref: 'City'}
 })
 
 
