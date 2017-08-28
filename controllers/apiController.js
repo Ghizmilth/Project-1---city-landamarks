@@ -10,10 +10,9 @@ function index(req, res) {
         description: "Describes available endpoints"
       }
     ]
-
   });
 }
 
 module.exports = {
   index: index
-}
+};
