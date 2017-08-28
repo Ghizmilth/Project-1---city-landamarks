@@ -1,5 +1,10 @@
+var $cityList;
+
 $(document).ready(function() {
   console.log("JS is loaded");
+
+  $cityList = $("#city-render");
+
   //AJAX calls
   //This allows us to render cities on main page
   $.ajax({
@@ -12,17 +17,11 @@ $(document).ready(function() {
     }
   });
 
-  $.ajax({
-    method: "GET",
-    url: "/api/landmarks",
-    success: renderLandmarks
-  });
-
   // $.ajax({
-  //   method: 'GET',
-  //   url: '/api/landmarks',
-  //   success:
-  // })
+  //   method: "GET",
+  //   url: "/api/cities/:citiesId/landmarks",
+  //   success: renderLandmarks
+  // });
 
   //click on EDIT city button
   $("#city-render").on("click", ".edit-city", handleCityEdit);
@@ -33,47 +32,45 @@ $(document).ready(function() {
   //click on save button in add city form
   $("#cityModal").on("click", "#saveCity", handleNewCitySubmit);
   //Open Add landmark modal
-  $("#landmark-edit-modal").on(
-    "click",
-    ".btn-add-landmark",
-    handleAddLandmarkClick
-  );
+  $("#city-render").on("click", ".btn-add-landmark", handleAddLandmarkClick);
   //save button - Landmark form
   $("#landmarkFormModal").on("click", "#saveLandmark", handleNewLandmarkSubmit);
 });
 
 //Renders one landmark at page loading
-function renderOneLandmark(city) {
-  var cityRendered = city[0]._id;
-  console.log("rendring landmarks for this city", cityRendered);
-
-  var oneLandmark = `
-    <div id="clear-landmark" data-city-id="${city[0]._id}>
-     <section class="container" id="landmarksSection">
-       <div class="row" id="btn-clear-landmark" data-city-id="${city[0]._id}>
-         <p>Name: ${city[0].landmarks[0].name}</p>
-         <p>Address: ${city[0].landmarks[0].address}</p>
-         <div id="comments-to-add">
-            <p>Comments: ${city[0].landmarks[0].comments}</p>
-         </div>
-           <img src= ${city[0].landmarks[0]
-             .imageURL} height="200px" width="200px"></img>
-
-       </div>
-       <div class="row" id="clear-this-also">
-         <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city[0]
-           ._id}">Add Landmark</button>
-       </div>
-     </section>
-    </div>
-  `;
-  $("#landmark-edit-modal").append(oneLandmark);
-}
+// function renderOneLandmark(city) {
+//   var cityRendered = city[0]._id;
+//   console.log("rendring landmarks for this city", cityRendered);
+//
+//   var oneLandmark = `
+//     <div id="clear-landmark" data-city-id="${city[0]._id}>
+//      <section class="container" id="landmarksSection">
+//        <div class="row" id="btn-clear-landmark" data-city-id="${city[0]._id}>
+//          <p>Name: ${city[0].landmarks[0].name}</p>
+//          <p>Address: ${city[0].landmarks[0].address}</p>
+//          <div id="comments-to-add">
+//             <p>Comments: ${city[0].landmarks[0].comments}</p>
+//          </div>
+//            <img src= ${city[0].landmarks[0]
+//              .imageURL} height="200px" width="200px"></img>
+//
+//        </div>
+//        <div class="row" id="clear-this-also">
+//          <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city[0]
+//            ._id}">Add Landmark</button>
+//        </div>
+//      </section>
+//     </div>
+//   `;
+//   $("#landmark-edit-modal").append(oneLandmark);
+// }
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log("add landmark clicked!");
-  var currentCityId = $(this).closest("");
+  console.log(e);
+  var currentCityId = $("div[data-city-id]", "main").attr("data-city-id");
+  console.log(currentCityId);
   $("#landmarkFormModal").modal();
 }
 
@@ -285,12 +282,28 @@ function renderNewCityUpdated(newCity) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
 
+    <hr/>
+
+
+      <h3>Landmarks</h3>
+      <div class="row" id="clear-this-also">
+        <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
+      </div>
+
+      <hr>
+
+    <div id="landmarks-render">
+    </div>
+
+
   </div>
   `;
 
     renderDropMenu(newCity);
 
     $("#city-render").append(cityHtml);
+
+    renderLandmarks(landmarks);
   });
 }
 
@@ -329,6 +342,30 @@ function renderOneCityOnly(city) {
       <div class="edition-button">
       <button type="button" class="btn edit-city" data-city-id="${city[0]
         ._id}">Update City</button>
+      </div>
+
+      <hr/>
+
+
+        <h3>Landmarks</h3>
+        <div class="row" id="clear-this-also">
+          <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
+        </div>
+
+        <hr>
+
+      <div id="landmarks-render">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+              <img src="${city[0].landmarks.imageURL}">
+            </div>
+            <div class="col-md-12" id='style-city'>
+              <h2>${city[0].landmarks.name}</h2>
+              <p>${city[0].landmarks.address}</p>
+              <p>${city[0].landmarks.comments}</P>
+            </div>
+        </div>
       </div>
 
 
@@ -398,6 +435,31 @@ function renderNewCity(city) {
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
 
+    <hr/>
+
+
+      <h3>Landmarks</h3>
+      <div class="row" id="clear-this-also">
+        <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
+      </div>
+
+      <hr>
+
+    <div id="landmarks-render">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+            <img src="${city.landmarks.imageURL}">
+          </div>
+          <div class="col-md-12" id='style-city'>
+            <h2>${city.landmarks.name}</h2>
+            <p>${city.landmarks.address}</p>
+            <p>${city.landmarks.comments}</P>
+          </div>
+      </div>
+    </div>
+
+
   </div>
   `;
 
@@ -454,38 +516,41 @@ function handleNewCitySubmit(e) {
 
   $("#cityModal").modal("hide");
 }
-// show all landmarks in HTML
-function renderLandmarks(landmarks) {
-  console.log(landmarks);
-  var landmarkHtml = "";
-  landmarks.forEach(function(item) {
-    landmarkHtml = `
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-          <img src="${item.imageURL}">
-        </div>
-        <div class="col-md-12" id='style-city'>
-          <h2>${item.name}</h2>
-          <p>${item.address}</p>
-          <p>${item.comments}</P>
-        </div>
-    </div>
-    `;
-    $("#landmarks-render").append(landmarkHtml);
-  });
-}
+
+// // show all landmarks in HTML
+// function renderLandmarks(landmarks) {
+//   console.log(landmarks);
+//   var landmarkHtml = "";
+//   landmarks.forEach(function(item) {
+//     landmarkHtml = `
+//     <div class="container">
+//       <div class="row">
+//         <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+//           <img src="${item.imageURL}">
+//         </div>
+//         <div class="col-md-12" id='style-city'>
+//           <h2>${item.name}</h2>
+//           <p>${item.address}</p>
+//           <p>${item.comments}</P>
+//         </div>
+//     </div>
+//     `;
+//     $("#landmarks-render").append(landmarkHtml);
+//   });
+// }
 
 //POST TO /api/landmarks
 
 // when the landmark modal submit button is clicked:
-function handleNewLandmarkSubmit(landmark) {
-  landmark.preventDefault();
+function handleNewLandmarkSubmit(e) {
+  e.preventDefault();
   console.log("Landmark SUBMIT clicked");
+  var currentCityId = $("div[data-city-id]", "main").attr("data-city-id");
+  console.log(currentCityId);
 
-  //var $foundCityId = $(landmark.target);//.parents('btn-add-landmark').data('city-id');
-  var landmarkId = landmark._id;
-  console.log(cityId);
+  // //var $foundCityId = $(landmark.target);//.parents('btn-add-landmark').data('city-id');
+  // // var landmarkId = landmark._id;
+  // console.log(e);
 
   var $modal = $("#landmarkFormModal");
   var $landmarkNameField = $modal.find("#landmarkName");
@@ -501,29 +566,31 @@ function handleNewLandmarkSubmit(landmark) {
     imageURL: $landmarkImageURL.val()
   };
 
+  $("#landmarkFormModal").modal("hide");
+
   console.log(landmarktoPost);
-}
 
-var landmarkPostToServer = "/api/cities" + _id + "/landmarks";
+  var landmarkPostToServer = "/api/cities/" + currentCityId; //+ "/landmarks";
 
-$.post(landmarkPostToServer, landmarktoPost, function(data) {
-  console.log("recevied data from post to /landmarks:", data);
+  $.post(landmarkPostToServer, landmarktoPost, function(data) {
+    console.log("recevied data from post to /landmarks:", data);
 
-  //clear form
-  $landmarkNameField.val(""), $addressField.val(""), $landmarkImageURL.val("");
+    //clear form
+    $landmarkNameField.val(
+      ""
+    ), $addressField.val(""), $landmarkImageURL.val("");
 
-  //close modal
-  $modal.modal("hide");
-
-  //update correct city to show new landmark
-  $.get("/api/cities/" + cityId, function(data) {
+    //update correct city to show new landmark
+    //$.get("/api/cities/" + currentCityId, function(data) {
     //remove current instance of city fr. the page.
-    $("[data-city-id=" + cityId + "]").remove();
+    // $("[data-city-id=" + cityId + "]").remove();
+
+    clearDomBeforeRender();
 
     //re-render city with new city data (and new landmark)
     renderNewCity(data);
   });
-});
+}
 
 function clearDomBeforeRender() {
   $("div").remove(".city");
@@ -533,5 +600,8 @@ function clearDomBeforeRender() {
   $("div").remove("#btn-clear-landmark");
   $("div").remove(".city-info");
   $("div").remove("#landmarksSection");
+  $("div").remove("#landmarks-render");
+  $("h3").remove();
+  $("hr").remove();
   return;
 }

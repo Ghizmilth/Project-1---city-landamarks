@@ -11,8 +11,8 @@ let CitySchema = new Schema({
   area: String,
   elevation: String,
   time_zone: String,
-  imageURL: String
-  // landmarks: [Landmark.schema]
+  imageURL: String,
+  landmarks: [Landmark.schema]
 });
 
 let City = mongoose.model("City", CitySchema);

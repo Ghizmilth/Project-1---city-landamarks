@@ -76,16 +76,6 @@ landmarkList.push({
     "http://usa.budgettravel.ie/assets/userfiles/san-francisco-skyline-600x600.jpg"
 });
 
-// db.Landmark.remove({}, function(err, landmarks){
-//   //add all landmarks to each city
-//   db.Landmark.create(landmarkList, function(err, landmarks){
-//     if (err) { return console.log('ERROR', err); }
-//     console.log("all Landmarks:", landmarks);
-//     console.log("created", landmarks.length, "landmarks");
-//     process.exit();
-//   })
-// });
-
 // add all landmarks to each city list
 cityList.forEach(function(city) {
   city.landmarks = landmarkList;
@@ -101,19 +91,19 @@ db.City.remove({}, function(err, cities) {
     console.log("all Cities:", cities);
     console.log("created", cities.length, "cities");
 
-    db.Landmark.remove({}, function(err, landmarks) {
-      console.log("removed all landmarks");
-      landmarkList.forEach(function(data) {
-        var landmark = new db.Landmark({
-          name: data.name,
-          address: data.address,
-          comments: data.comments,
-          imageURL: data.imageURL,
-          _city: data._city
-        });
-        console.log("all landmarks", data);
-        console.log("created", data.length, "landmarks");
-      });
-    });
+    // db.Landmark.remove({}, function(err, landmarks) {
+    //   console.log("removed all landmarks");
+    //   landmarkList.forEach(function(data) {
+    //     var landmark = new db.Landmark({
+    //       name: data.name,
+    //       address: data.address,
+    //       comments: data.comments,
+    //       imageURL: data.imageURL,
+    //       _city: data._city
+    //     });
+    //     console.log("all landmarks", data);
+    //     console.log("created", data.length, "landmarks");
   });
 });
+// });
+// });
