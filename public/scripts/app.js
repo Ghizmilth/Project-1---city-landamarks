@@ -37,34 +37,6 @@ $(document).ready(function() {
   $("#landmarkFormModal").on("click", "#saveLandmark", handleNewLandmarkSubmit);
 });
 
-//Renders one landmark at page loading
-// function renderOneLandmark(city) {
-//   var cityRendered = city[0]._id;
-//   console.log("rendring landmarks for this city", cityRendered);
-//
-//   var oneLandmark = `
-//     <div id="clear-landmark" data-city-id="${city[0]._id}>
-//      <section class="container" id="landmarksSection">
-//        <div class="row" id="btn-clear-landmark" data-city-id="${city[0]._id}>
-//          <p>Name: ${city[0].landmarks[0].name}</p>
-//          <p>Address: ${city[0].landmarks[0].address}</p>
-//          <div id="comments-to-add">
-//             <p>Comments: ${city[0].landmarks[0].comments}</p>
-//          </div>
-//            <img src= ${city[0].landmarks[0]
-//              .imageURL} height="200px" width="200px"></img>
-//
-//        </div>
-//        <div class="row" id="clear-this-also">
-//          <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city[0]
-//            ._id}">Add Landmark</button>
-//        </div>
-//      </section>
-//     </div>
-//   `;
-//   $("#landmark-edit-modal").append(oneLandmark);
-// }
-
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
   console.log("add landmark clicked!");
@@ -249,6 +221,7 @@ function renderNewCityUpdated(newCity) {
 
     clearDomBeforeRender();
 
+    city.landmarkHtml = newCity.landmarks.map(oneLandmark).join("");
     //create template for rendering new city info
     var cityHtml = `
   <div class="row city" data-city-id="${city._id}">
@@ -293,6 +266,7 @@ function renderNewCityUpdated(newCity) {
       <hr>
 
     <div id="landmarks-render">
+      ${city.landmarkHtml}
     </div>
 
 
@@ -368,7 +342,7 @@ function renderOneCityOnly(city) {
 
   $("#city-render").append(oneCity);
 
-  getOneCityLandmark(city);
+  //getOneCityLandmark(city);
 }
 
 function oneLandmark(landmark) {
@@ -387,57 +361,57 @@ function oneLandmark(landmark) {
      </div>`;
 }
 
-function getOneCityLandmark(city) {
-  //   if (landmarks) {
-  //     return landmarks
-  //       .map(function(landmark) {
-  //         return getLandmarkHtml(cityId, landmark);
-  //       })
-  //       .join("");
-  //   } else {
-  //     return "";
-  //   }
-  // }
-  //
-  // function getLandmarkHtml(cityId, landmark) {
-  //   return `
-  //      <div class="container">
-  //        <div class="row">
-  //          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-  //            <img src="${landmark.imageURL}">
-  //          </div>
-  //         <div class="col-md-12" id='style-city'>
-  //            <h2>${landmark.name}</h2>
-  //            <p>${landmark.address}</p>
-  //            <p>${landmark.comments}</P>
-  //       </div>
-  //      </div>
-  //    </div>`;
-  // }
-
-  for (var i = 0; i < city[0].landmarks[i].length; i++) {
-    var name = city[0].landmarks[i].name;
-    console.log(name);
-    address = city[0].landmarks[i].address;
-    console.log(address);
-    comments = city[0].landmarks[i].comments;
-    imageURL = city[0].landmarks[i].imageURL;
-  }
-  var landmarksList = `
-<div class="container">
-  <div class="row">
-    <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-      <img src="${city[0].landmarks[i].imageURL}">
-    </div>
-    <div class="col-md-12" id='style-city'>
-      <h2>${city[0].landmarks[i].name}</h2>
-      <p>${city[0].landmarks[i].address}</p>
-      <p>${city[0].landmarks[i].comments}</P>
-    </div>
-</div>
-`;
-  $("#landmarks-render").append(landmarksList);
-}
+// function getOneCityLandmark(city) {
+//   //   if (landmarks) {
+//   //     return landmarks
+//   //       .map(function(landmark) {
+//   //         return getLandmarkHtml(cityId, landmark);
+//   //       })
+//   //       .join("");
+//   //   } else {
+//   //     return "";
+//   //   }
+//   // }
+//   //
+//   // function getLandmarkHtml(cityId, landmark) {
+//   //   return `
+//   //      <div class="container">
+//   //        <div class="row">
+//   //          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+//   //            <img src="${landmark.imageURL}">
+//   //          </div>
+//   //         <div class="col-md-12" id='style-city'>
+//   //            <h2>${landmark.name}</h2>
+//   //            <p>${landmark.address}</p>
+//   //            <p>${landmark.comments}</P>
+//   //       </div>
+//   //      </div>
+//   //    </div>`;
+//   // }
+//
+//   for (var i = 0; i < city[0].landmarks[i].length; i++) {
+//     var name = city[0].landmarks[i].name;
+//     console.log(name);
+//     address = city[0].landmarks[i].address;
+//     console.log(address);
+//     comments = city[0].landmarks[i].comments;
+//     imageURL = city[0].landmarks[i].imageURL;
+//   }
+//   var landmarksList = `
+// <div class="container">
+//   <div class="row">
+//     <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+//       <img src="${city[0].landmarks[i].imageURL}">
+//     </div>
+//     <div class="col-md-12" id='style-city'>
+//       <h2>${city[0].landmarks[i].name}</h2>
+//       <p>${city[0].landmarks[i].address}</p>
+//       <p>${city[0].landmarks[i].comments}</P>
+//     </div>
+// </div>
+// `;
+//   $("#landmarks-render").append(landmarksList);
+// }
 
 //Render cities on HTML
 function renderCities(cities) {
@@ -451,19 +425,12 @@ function renderNewCity(city) {
   let cityId = $(city).data("id-city");
   console.log("rendering city", cityId);
 
-  // var placeLocation = lat;
-  // console.log(placeLocation);
-
   $.get("/api/cities/" + cityId, function(city) {
     console.log("this is the city to show now", city);
 
     clearDomBeforeRender();
 
-    //
-    // function renderLandmark(landmark) {
-    //   return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
-    //   <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
-    // }
+    city.landmarkHtml = city.landmarks.map(oneLandmark).join("");
 
     var cityHtml = `
   <div class="row city" data-city-id="${city._id}">
@@ -508,17 +475,7 @@ function renderNewCity(city) {
       <hr>
 
     <div id="landmarks-render">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-            <img src="${city.landmarks.imageURL}">
-          </div>
-          <div class="col-md-12" id='style-city'>
-            <h2>${city.landmarks.name}</h2>
-            <p>${city.landmarks.address}</p>
-            <p>${city.landmarks.comments}</P>
-          </div>
-      </div>
+        ${city.landmarkHtml}
     </div>
 
 
