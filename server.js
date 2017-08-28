@@ -32,7 +32,7 @@ app.post("/api/cities", controllers.cities.create);
 // );
 
 app.get("/api/cities/:citiesId/landmarks", controllers.landmarks.show);
-app.post("/api/cities/:citiesId", controllers.landmarks.create);
+app.post("/api/cities/:citiesId/landmarks", controllers.landmarks.create);
 
 // app.delete("/api/landmarks/:landmarkId", controllers.landmarks.destroy);
 // app.put("/api/landmarks/:landmarkId", controllers.landmarks.update);
