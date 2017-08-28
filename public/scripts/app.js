@@ -310,6 +310,8 @@ function renderNewCityUpdated(newCity) {
 function renderOneCityOnly(city) {
   console.log("rendering city", city);
 
+  city.landmarkHtml = city[0].landmarks.map(oneLandmark).join("");
+
   var oneCity = `
     <div class="row city" data-city-id="${city[0]._id}">
 
@@ -355,17 +357,7 @@ function renderOneCityOnly(city) {
         <hr>
 
       <div id="landmarks-render">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-              <img src="${city[0].landmarks.imageURL}">
-            </div>
-            <div class="col-md-12" id='style-city'>
-              <h2>${city[0].landmarks.name}</h2>
-              <p>${city[0].landmarks.address}</p>
-              <p>${city[0].landmarks.comments}</P>
-            </div>
-        </div>
+        ${city.landmarkHtml}
       </div>
 
 
@@ -375,6 +367,76 @@ function renderOneCityOnly(city) {
     `;
 
   $("#city-render").append(oneCity);
+
+  getOneCityLandmark(city);
+}
+
+function oneLandmark(landmark) {
+  return `
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+              <img src="${landmark.imageURL}">
+            </div>
+           <div class="col-md-12" id='style-city'>
+              <h2>${landmark.name}</h2>
+              <p>${landmark.address}</p>
+              <p>${landmark.comments}</P>
+       </div>
+      </div>
+     </div>`;
+}
+
+function getOneCityLandmark(city) {
+  //   if (landmarks) {
+  //     return landmarks
+  //       .map(function(landmark) {
+  //         return getLandmarkHtml(cityId, landmark);
+  //       })
+  //       .join("");
+  //   } else {
+  //     return "";
+  //   }
+  // }
+  //
+  // function getLandmarkHtml(cityId, landmark) {
+  //   return `
+  //      <div class="container">
+  //        <div class="row">
+  //          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+  //            <img src="${landmark.imageURL}">
+  //          </div>
+  //         <div class="col-md-12" id='style-city'>
+  //            <h2>${landmark.name}</h2>
+  //            <p>${landmark.address}</p>
+  //            <p>${landmark.comments}</P>
+  //       </div>
+  //      </div>
+  //    </div>`;
+  // }
+
+  for (var i = 0; i < city[0].landmarks[i].length; i++) {
+    var name = city[0].landmarks[i].name;
+    console.log(name);
+    address = city[0].landmarks[i].address;
+    console.log(address);
+    comments = city[0].landmarks[i].comments;
+    imageURL = city[0].landmarks[i].imageURL;
+  }
+  var landmarksList = `
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+      <img src="${city[0].landmarks[i].imageURL}">
+    </div>
+    <div class="col-md-12" id='style-city'>
+      <h2>${city[0].landmarks[i].name}</h2>
+      <p>${city[0].landmarks[i].address}</p>
+      <p>${city[0].landmarks[i].comments}</P>
+    </div>
+</div>
+`;
+  $("#landmarks-render").append(landmarksList);
 }
 
 //Render cities on HTML
