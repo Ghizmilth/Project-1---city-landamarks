@@ -17,12 +17,6 @@ $(document).ready(function() {
     }
   });
 
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/cities/:citiesId/landmarks",
-  //   success: renderLandmarks
-  // });
-
   //click on EDIT city button
   $("#city-render").on("click", ".edit-city", handleCityEdit);
   //submit city changes
@@ -32,38 +26,12 @@ $(document).ready(function() {
   //click on save button in add city form
   $("#cityModal").on("click", "#saveCity", handleNewCitySubmit);
   //Open Add landmark modal
-  $("#city-render").on("click", ".btn-add-landmark", handleAddLandmarkClick);
+  $("#LandmarkList").on("click", ".btn-add-landmark", handleAddLandmarkClick);
   //save button - Landmark form
   $("#landmarkFormModal").on("click", "#saveLandmark", handleNewLandmarkSubmit);
 });
 
-//Renders one landmark at page loading
-// function renderOneLandmark(city) {
-//   var cityRendered = city[0]._id;
-//   console.log("rendring landmarks for this city", cityRendered);
-//
-//   var oneLandmark = `
-//     <div id="clear-landmark" data-city-id="${city[0]._id}>
-//      <section class="container" id="landmarksSection">
-//        <div class="row" id="btn-clear-landmark" data-city-id="${city[0]._id}>
-//          <p>Name: ${city[0].landmarks[0].name}</p>
-//          <p>Address: ${city[0].landmarks[0].address}</p>
-//          <div id="comments-to-add">
-//             <p>Comments: ${city[0].landmarks[0].comments}</p>
-//          </div>
-//            <img src= ${city[0].landmarks[0]
-//              .imageURL} height="200px" width="200px"></img>
-//
-//        </div>
-//        <div class="row" id="clear-this-also">
-//          <button type="button" class="btn btn-add-landmark add-this-landmark" data-city-id="${city[0]
-//            ._id}">Add Landmark</button>
-//        </div>
-//      </section>
-//     </div>
-//   `;
-//   $("#landmark-edit-modal").append(oneLandmark);
-// }
+
 
 // when the ADD Landmark button is clicked, display the modal to display form for adding a landmark
 function handleAddLandmarkClick(e) {
@@ -250,7 +218,7 @@ function renderNewCityUpdated(newCity) {
     clearDomBeforeRender();
 
     //create template for rendering new city info
-    var cityHtml = `
+    var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
   <div class="row"
@@ -283,34 +251,18 @@ function renderNewCityUpdated(newCity) {
     </div>
 
     <hr/>
-
-
-      <h3>Landmarks</h3>
-      <div class="row" id="clear-this-also">
-        <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
-      </div>
-
-      <hr>
-
-    <div id="landmarks-render">
-    </div>
-
-
-  </div>
-  `;
+  `);
 
     renderDropMenu(newCity);
 
     $("#city-render").append(cityHtml);
-
-    renderLandmarks(landmarks);
   });
 }
 
 function renderOneCityOnly(city) {
   console.log("rendering city", city);
 
-  var oneCity = `
+  var oneCity = (`
     <div class="row city" data-city-id="${city[0]._id}">
 
     <div class="row"
@@ -340,40 +292,14 @@ function renderOneCityOnly(city) {
         </div>
       </div>
       <div class="edition-button">
-      <button type="button" class="btn edit-city" data-city-id="${city[0]
-        ._id}">Update City</button>
+      <button type="button" class="btn edit-city" data-city-id="${city[0]._id}">Update City</button>
       </div>
 
       <hr/>
-
-
-        <h3>Landmarks</h3>
-        <div class="row" id="clear-this-also">
-          <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
-        </div>
-
-        <hr>
-
-      <div id="landmarks-render">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-              <img src="${city[0].landmarks.imageURL}">
-            </div>
-            <div class="col-md-12" id='style-city'>
-              <h2>${city[0].landmarks.name}</h2>
-              <p>${city[0].landmarks.address}</p>
-              <p>${city[0].landmarks.comments}</P>
-            </div>
-        </div>
-      </div>
-
-
   </div>
   </div>
 
-    `;
-
+    `);
   $("#city-render").append(oneCity);
 }
 
@@ -397,13 +323,7 @@ function renderNewCity(city) {
 
     clearDomBeforeRender();
 
-    //
-    // function renderLandmark(landmark) {
-    //   return `<p>&ndash; (${landmark.name}) ${landmark.address} &ndash;<br>
-    //   <img src =  "${landmark.landmarkImageURL}" class="landmarkImg"></p>`
-    // }
-
-    var cityHtml = `
+    var cityHtml = (`
   <div class="row city" data-city-id="${city._id}">
 
   <div class="row"
@@ -434,36 +354,9 @@ function renderNewCity(city) {
     <div class="edition-button">
     <button type="button" class="btn edit-city" data-city-id="${city._id}">Update City</button>
     </div>
+  `);
 
-    <hr/>
-
-
-      <h3>Landmarks</h3>
-      <div class="row" id="clear-this-also">
-        <button type="button" class="btn btn-add-landmark add-this-landmark">Add Landmark</button>
-      </div>
-
-      <hr>
-
-    <div id="landmarks-render">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-            <img src="${city.landmarks.imageURL}">
-          </div>
-          <div class="col-md-12" id='style-city'>
-            <h2>${city.landmarks.name}</h2>
-            <p>${city.landmarks.address}</p>
-            <p>${city.landmarks.comments}</P>
-          </div>
-      </div>
-    </div>
-
-
-  </div>
-  `;
-
-    $("#city-render").append(cityHtml);
+  $("#city-render").append(cityHtml);
   });
 }
 
@@ -517,27 +410,26 @@ function handleNewCitySubmit(e) {
   $("#cityModal").modal("hide");
 }
 
-// // show all landmarks in HTML
-// function renderLandmarks(landmarks) {
-//   console.log(landmarks);
-//   var landmarkHtml = "";
-//   landmarks.forEach(function(item) {
-//     landmarkHtml = `
-//     <div class="container">
-//       <div class="row">
-//         <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
-//           <img src="${item.imageURL}">
-//         </div>
-//         <div class="col-md-12" id='style-city'>
-//           <h2>${item.name}</h2>
-//           <p>${item.address}</p>
-//           <p>${item.comments}</P>
-//         </div>
-//     </div>
-//     `;
-//     $("#landmarks-render").append(landmarkHtml);
-//   });
-// }
+//show all landmarks in HTML
+function renderLandmarks(landmarks) {
+  console.log(landmarks);
+  landmarks.forEach(function(item) {
+    landmarkHtml =(`
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sx-12 thumbnail landmark-photo" class="landmark-image">
+          <img src="${item.imageURL}">
+        </div>
+        <div class="col-md-12" id='style-city'>
+          <h2>${item.name}</h2>
+          <p>${item.address}</p>
+          <p>${item.comments}</P>
+        </div>
+    </div>
+    `)
+    $("#landmarks-render").append(landmarkHtml);
+  });
+}
 
 //POST TO /api/landmarks
 
@@ -576,9 +468,9 @@ function handleNewLandmarkSubmit(e) {
     console.log("recevied data from post to /landmarks:", data);
 
     //clear form
-    $landmarkNameField.val(
-      ""
-    ), $addressField.val(""), $landmarkImageURL.val("");
+    $landmarkNameField.val("");
+    $addressField.val("");
+    $landmarkImageURL.val("");
 
     //update correct city to show new landmark
     //$.get("/api/cities/" + currentCityId, function(data) {

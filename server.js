@@ -44,6 +44,6 @@ app.post("/api/cities/:citiesId", controllers.landmarks.create);
 
 //LISTENING
 
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Server is running on localhost: 3000/");
+app.listen(process.env.PORT || 3001, function() {
+  console.log("Server is running on localhost: 3001/");
 });
